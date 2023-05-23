@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   styles: [
-    'div { max-width: 400px; margin: auto }',
-    'mat-toolbar { margin-bottom: 10px }'
+    'div { max-width: 400px; margin: auto; }',
+    'mat-toolbar { margin-bottom: 10px; }',
   ],
   template: `
   <mat-toolbar>
