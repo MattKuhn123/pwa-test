@@ -20,7 +20,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       <app-depot 
         *ngSwitchCase="'SET_DEPOT'" 
         [formGroup]="depotGroup"
-      ></app-depot>
+        ></app-depot>
+      <app-outing-type 
+        *ngSwitchCase="'SET_OUTING_TYPE'" 
+        [formGroup]="outingTypeGroup"
+      ></app-outing-type>
       <app-setting 
         *ngSwitchCase="'SET_SETTING'" 
         [formGroup]="settingGroup"
@@ -42,9 +46,10 @@ export class AppComponent {
   protected formGroup!: FormGroup;
 
   protected get depotGroup(): FormGroup { return this.formGroup.get('depot') as FormGroup; }
+  protected get outingTypeGroup(): FormGroup { return this.formGroup.get('outingType') as FormGroup; }
   protected get settingGroup(): FormGroup { return this.formGroup.get('setting') as FormGroup; }
   protected get populationGroup(): FormGroup { return this.formGroup.get('population') as FormGroup; }
-
+  
   protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
 
   constructor(protected state: StatesService, private formBuilder: FormBuilder) {
@@ -52,6 +57,10 @@ export class AppComponent {
 
     this.formGroup = this.formBuilder.group({
       depot: this.formBuilder.group({
+        id: this.formBuilder.control('', Validators.required),
+        name: this.formBuilder.control('', Validators.required),
+      }),
+      outingType: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),

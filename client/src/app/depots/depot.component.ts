@@ -38,7 +38,7 @@ import { StatesService } from '../states.service';
     <mat-card-actions>
       <button 
         mat-button 
-        (click)="states.toSetSetting()"
+        (click)="states.toSetOutingType()"
         [disabled]="!formGroup.valid">
         Next
       </button>

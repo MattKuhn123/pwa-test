@@ -51,9 +51,9 @@ export class PopulationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        // TODO : This seems like a lot of code to write
-        this.breedGroup.get("id")?.valueChanges.subscribe(id => {
-          this.breedGroup.get("name")?.setValue(this.breeds.find(b => b.id === id)?.name);
-        });
+    // TODO : This seems like a lot of code to write
+    this.breedGroup.get("id")?.valueChanges.subscribe(id => {
+      this.breedGroup.get("name")?.setValue(this.breeds.find(b => b.id === id)?.name);
+    });
   }
 }

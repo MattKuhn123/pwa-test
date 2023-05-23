@@ -3,4 +3,5 @@ export const environment = {
   depots: '/depots.json',
   biomes: '/biomes.json',
   breeds: '/breeds.json',
+  outingTypes: '/outing-types.json',
 };
