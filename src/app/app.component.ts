@@ -9,10 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   <mat-toolbar>
     <span>PWA Test</span>
   </mat-toolbar>
-  <form formGroup="formGroup">
+  <form [formGroup]="formGroup">
     <div [ngSwitch]="currentState">
-      <app-depot *ngSwitchCase="'SET_DEPOT'" [formGroup]="formGroup"></app-depot>
-      <div *ngSwitchCase="'SET_SETTING'">TODO</div>
+      <app-depot *ngSwitchCase="'SET_DEPOT'" [formGroup]="depotGroup"></app-depot>
+      <app-setting *ngSwitchCase="'SET_SETTING'" [formGroup]="settingGroup"></app-setting>
       <p *ngSwitchDefault>Default...</p>
     </div>
   </form>
@@ -23,6 +23,9 @@ export class AppComponent {
   protected currentState!: string;
   protected formGroup!: FormGroup;
 
+  protected get depotGroup(): FormGroup { return this.formGroup.get('depot') as FormGroup; }
+  protected get settingGroup(): FormGroup { return this.formGroup.get('setting') as FormGroup; }
+
   protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
 
   constructor(private state: StatesService, private formBuilder: FormBuilder) {
@@ -32,7 +35,15 @@ export class AppComponent {
       depot: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
-      })
+      }),
+      setting: this.formBuilder.group({
+        date: this.formBuilder.control('', Validators.required),
+        leader: this.formBuilder.control('', Validators.required),
+        biome: this.formBuilder.group({
+          id: this.formBuilder.control('', Validators.required),
+          name: this.formBuilder.control('', Validators.required),
+        }),
+      }),
     });
   }
 }

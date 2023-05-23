@@ -10,4 +10,5 @@ export class StatesService {
   
   public toSetDepot(): void { this._state.next("SET_DEPOT"); }
   public toSetSetting(): void { this._state.next("SET_SETTING"); }
+  public toSetPopulationData(): void { this._state.next("SET_POPULATION_DATA"); }
 }
