@@ -14,7 +14,8 @@ import { StatesService } from '../states.service';
 export class DepotComponent implements OnInit {
   depots: Depot[] = [];
 
-  constructor(private depotService: DepotService, private states: StatesService) { }
+  constructor(private depotService: DepotService, 
+    private states: StatesService) { }
   
   ngOnInit(): void {
     this.depotService.getDepots().subscribe(depots => {

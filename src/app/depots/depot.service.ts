@@ -12,6 +12,6 @@ export class DepotService {
   public getDepots(): Observable<Depot[]> {
     return this.client
       .get(`${environment.api}${environment.depots}`)
-      .pipe(map((data: any) => data.depots as Depot[]));
+      .pipe(map((data: any) => data as Depot[]));
   }
 }
