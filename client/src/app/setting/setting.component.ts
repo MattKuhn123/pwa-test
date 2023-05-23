@@ -42,7 +42,7 @@ import { StatesService } from '../states.service';
     <mat-card-actions>
       <button 
         mat-button 
-        (click)="states.toSetPopulationData()"
+        (click)="states.toSetPopulation()"
         [disabled]="!formGroup.valid">
         Next
       </button>

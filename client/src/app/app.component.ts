@@ -25,6 +25,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         *ngSwitchCase="'SET_SETTING'" 
         [formGroup]="settingGroup"
       ></app-setting>
+      <app-population 
+        *ngSwitchCase="'SET_POPULATION'" 
+        [formGroup]="populationGroup"
+      ></app-population>
       <p *ngSwitchDefault>
         Default...
       </p>
@@ -39,6 +43,7 @@ export class AppComponent {
 
   protected get depotGroup(): FormGroup { return this.formGroup.get('depot') as FormGroup; }
   protected get settingGroup(): FormGroup { return this.formGroup.get('setting') as FormGroup; }
+  protected get populationGroup(): FormGroup { return this.formGroup.get('population') as FormGroup; }
 
   protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
 
@@ -58,6 +63,13 @@ export class AppComponent {
           name: this.formBuilder.control('', Validators.required),
         }),
       }),
+      population: this.formBuilder.group({
+        breed: this.formBuilder.group({
+          id: this.formBuilder.control('', Validators.required),
+          name: this.formBuilder.control('', Validators.required),
+        }),
+        count: this.formBuilder.control('', Validators.required),
+      })
     });
   }
 }

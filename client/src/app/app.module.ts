@@ -6,8 +6,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DepotComponent } from './depots/depot.component';
 import { SettingComponent } from './setting/setting.component';
+import { PopulationComponent } from './population/population.component';
 import { DepotService } from './depots/depot.service';
 import { BiomeService } from './setting/biome.service';
+import { BreedService } from './population/breed.service';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +28,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   declarations: [
     AppComponent,
     DepotComponent,
-    SettingComponent
+    PopulationComponent,
+    SettingComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatToolbarModule
   ],
-  providers: [ DepotService, BiomeService ],
+  providers: [
+    BiomeService,
+    BreedService,
+    DepotService
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
