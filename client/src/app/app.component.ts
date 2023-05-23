@@ -4,16 +4,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  styles: [],
+  styles: [
+    'div { max-width: 400px; margin: auto }',
+    'mat-toolbar { margin-bottom: 10px }'
+  ],
   template: `
   <mat-toolbar>
-    <span>PWA Test</span>
+    <button 
+      mat-button 
+      (click)="state.toSetDepot()"
+    >PWA Test</button>
   </mat-toolbar>
   <form [formGroup]="formGroup">
     <div [ngSwitch]="currentState">
-      <app-depot *ngSwitchCase="'SET_DEPOT'" [formGroup]="depotGroup"></app-depot>
-      <app-setting *ngSwitchCase="'SET_SETTING'" [formGroup]="settingGroup"></app-setting>
-      <p *ngSwitchDefault>Default...</p>
+      <app-depot 
+        *ngSwitchCase="'SET_DEPOT'" 
+        [formGroup]="depotGroup"
+      ></app-depot>
+      <app-setting 
+        *ngSwitchCase="'SET_SETTING'" 
+        [formGroup]="settingGroup"
+      ></app-setting>
+      <p *ngSwitchDefault>
+        Default...
+      </p>
     </div>
   </form>
   <pre *ngIf="formGroup">{{ json }}</pre>
@@ -28,7 +42,7 @@ export class AppComponent {
 
   protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
 
-  constructor(private state: StatesService, private formBuilder: FormBuilder) {
+  constructor(protected state: StatesService, private formBuilder: FormBuilder) {
     this.state.state.subscribe(nextState => this.currentState = nextState);
 
     this.formGroup = this.formBuilder.group({
