@@ -12,7 +12,8 @@ import { StatesService } from '../states.service';
   template: `
   <mat-card [formGroup]="formGroup">
     <mat-card-header>
-      <mat-card-title>Enter the setting</mat-card-title>
+      <mat-card-title>Setting</mat-card-title>
+      <mat-card-subtitle>Setting details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field formGroupName="biome" *ngIf="biomes.length">

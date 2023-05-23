@@ -12,7 +12,8 @@ import { StatesService } from '../states.service';
   template: `
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Select depot</mat-card-title>
+      <mat-card-title>Depot</mat-card-title>
+      <mat-card-subtitle>Depot details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <table *ngIf="depots.length" mat-table [dataSource]="depots">
