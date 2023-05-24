@@ -5,10 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StatesService {
-  private _state: BehaviorSubject<string> = new BehaviorSubject('SET_DEPOT');
+  private _state: BehaviorSubject<string> = new BehaviorSubject('SET_STATION');
   public get state(): Observable<string> { return this._state.asObservable(); }
   
-  public toSetDepot(): void { this._state.next("SET_DEPOT"); }
+  public toSetStation(): void { this._state.next("SET_STATION"); }
   public toSetOutingType(): void { this._state.next("SET_OUTING_TYPE"); }
   public toSetEnvironment(): void { this._state.next("SET_ENVIRONMENT"); }
   public toSetPopulation(): void { this._state.next("SET_POPULATION"); }

@@ -1,4 +1,4 @@
-export class Depot {
+export class Station {
   id: string;
   name: string;
 

@@ -16,7 +16,7 @@ This application is a MVP *(minimum viable product)* to reproduce their current 
 
 ### The biologists' process
 
-1. They select their depot.  
+1. They select their station.  
 1. They select their outing type.  
 1. If they are *gilling,* they'll have 15 cycles.  
 1. If they are *electrecuting,* they'll have 12 cycles.  

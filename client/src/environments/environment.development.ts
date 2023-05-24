@@ -1,6 +1,6 @@
 export const environment = {
   api: "./assets/api",
-  depots: '/depots.json',
+  stations: '/stations.json',
   biomes: '/biomes.json',
   breeds: '/breeds.json',
   outingTypes: '/outing-types.json',

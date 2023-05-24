@@ -1,22 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Depot } from './depot.model';
-import { DepotService } from './depot.service';
+import { Station } from './station.model';
+import { StationService } from './station.service';
 import { StatesService } from '../states.service';
 
 @Component({
-  selector: 'app-depot',
+  selector: 'app-station',
   styles: [
     '.selected { background-color: aliceblue }', // TODO : issues with hover...
   ],
   template: `
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Depot</mat-card-title>
-      <mat-card-subtitle>Depot details</mat-card-subtitle>
+      <mat-card-title>Station</mat-card-title>
+      <mat-card-subtitle>Station details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <table *ngIf="depots.length" mat-table [dataSource]="depots">
+      <table *ngIf="stations.length" mat-table [dataSource]="stations">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> Id </th>
           <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
@@ -33,7 +33,7 @@ import { StatesService } from '../states.service';
           [class.selected]="row.id === formGroup.get('id')?.getRawValue()"
         ></tr>
       </table>
-      <p *ngIf="!depots.length">please wait...</p>
+      <p *ngIf="!stations.length">please wait...</p>
     </mat-card-content>
     <mat-card-actions>
       <button 
@@ -46,12 +46,12 @@ import { StatesService } from '../states.service';
   </mat-card>
   `,
 })
-export class DepotComponent {
+export class StatationComponent {
   protected displayedColumns: string[] = ['id', 'name'];
-  protected depots: Depot[] = [];
+  protected stations: Station[] = [];
   @Input() formGroup!: FormGroup;
 
-  constructor(depotSvc: DepotService, protected states: StatesService) {
-    depotSvc.getDepots().subscribe(depots => this.depots = depots);
+  constructor(stationSvc: StationService, protected states: StatesService) {
+    stationSvc.getStations().subscribe(stations => this.stations = stations);
   }
 }

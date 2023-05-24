@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DepotComponent } from './depot/depot.component';
+import { StatationComponent } from './station/station.component';
 import { EnvironmentComponent } from './environment/environment.component';
+import { OutingComponent } from './outing/outing.component';
 import { OutingTypeComponent } from './outing-type/outing-type.component';
 import { PopulationComponent } from './population/population.component';
-import { DepotService } from './depot/depot.service';
+import { StationService } from './station/station.service';
 import { BiomeService } from './environment/biome.service';
 import { BreedService } from './population/breed.service';
 import { OutingTypeService } from './outing-type/outing-type.service';
@@ -29,7 +30,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
-    DepotComponent,
+    StatationComponent,
+    OutingComponent,
     OutingTypeComponent,
     PopulationComponent,
     EnvironmentComponent,
@@ -60,7 +62,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   providers: [
     BiomeService,
     BreedService,
-    DepotService,
+    StationService,
     OutingTypeService
   ],
   bootstrap: [ AppComponent ]
