@@ -1,4 +1,4 @@
-export class Breed {
+export class Species {
   id: string;
   name: string;
 

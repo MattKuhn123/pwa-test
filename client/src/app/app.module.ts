@@ -11,7 +11,7 @@ import { OutingTypeComponent } from './outing-type/outing-type.component';
 import { PopulationComponent } from './population/population.component';
 import { StationService } from './station/station.service';
 import { BiomeService } from './environment/biome.service';
-import { BreedService } from './population/breed.service';
+import { SpeciesService } from './population/species.service';
 import { OutingTypeService } from './outing-type/outing-type.service';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -61,7 +61,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
   providers: [
     BiomeService,
-    BreedService,
+    SpeciesService,
     StationService,
     OutingTypeService
   ],
