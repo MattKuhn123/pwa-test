@@ -3,6 +3,7 @@ import { StatesService } from './states.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
+import { Station } from './station/station.model';
 
 @Component({
   selector: 'app-root',
@@ -75,6 +76,10 @@ export class AppComponent implements OnInit {
       const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
       if (lastSession) {
         this.formGroup.setValue(lastSession, { emitEvent: false });
+      } else {
+        const retainStation: Station = this.stationGroup.getRawValue();
+        this.formGroup.reset(undefined, { emitEvent: false });
+        this.stationGroup.setValue(retainStation, { emitEvent: false });
       }
     })
 
