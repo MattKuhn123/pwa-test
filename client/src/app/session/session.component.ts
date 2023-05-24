@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { StatesService } from '../states.service';
 import { SessionType } from './session-type.model';
 import { SessionTypeService } from './session-type.service';
 
@@ -70,7 +69,7 @@ export class SessionComponent implements OnInit {
       : this.sessionTypeSvc.ELECTROCUTING_RUNS;
   }
 
-  constructor(protected states: StatesService, protected sessionTypeSvc: SessionTypeService) { }
+  constructor(protected sessionTypeSvc: SessionTypeService) { }
 
   ngOnInit(): void {
     this.sessionTypeGroup.get("id")?.valueChanges.subscribe(id => {

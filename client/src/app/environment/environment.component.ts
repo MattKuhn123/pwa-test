@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HabitatService } from './habitat.service';
 import { Habitat } from './habitat.model';
-import { StatesService } from '../states.service';
 
 @Component({
   selector: 'app-environment',
@@ -50,7 +49,7 @@ export class EnvironmentComponent implements OnInit {
 
   protected get habitatGroup(): FormGroup { return this.environmentGroup.get('habitat') as FormGroup; }
   
-  constructor(protected states: StatesService, habitatSvc: HabitatService) {
+  constructor(habitatSvc: HabitatService) {
     habitatSvc.getHabitats().subscribe(habitats => this.habitats = habitats);
   }
 

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SpeciesService } from './species.service';
 import { Species } from './species.model';
-import { StatesService } from '../states.service';
 
 @Component({
   selector: 'app-population',
@@ -41,7 +40,7 @@ export class PopulationComponent implements OnInit {
 
   protected get speciesGroup(): FormGroup { return this.populationGroup.get('species') as FormGroup; }
   
-  constructor(protected states: StatesService, speciesSvc: SpeciesService) {
+  constructor(speciesSvc: SpeciesService) {
     speciesSvc.getSpecies().subscribe(species => this.species = species);
   }
 
