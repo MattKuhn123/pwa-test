@@ -8,13 +8,13 @@ import { OutingType } from './outing-type.model';
   selector: 'app-outing-type',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="formGroup" *ngIf="outingTypes.length">
+  <mat-card [formGroup]="formGroup">
     <mat-card-header>
       <mat-card-title>Outing Type</mat-card-title>
       <mat-card-subtitle>Select outing type</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field>
+      <mat-form-field *ngIf="outingTypes.length">
         <mat-label>Outing Type</mat-label>
         <mat-select formControlName="id">
           <mat-option *ngFor="let outingType of outingTypes" [value]="outingType.id">
@@ -22,6 +22,7 @@ import { OutingType } from './outing-type.model';
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <p *ngIf="!outingTypes.length">please wait...</p>
     </mat-card-content>
     <mat-card-actions>
       <button 
@@ -32,7 +33,6 @@ import { OutingType } from './outing-type.model';
       </button>
     </mat-card-actions>
   </mat-card>
-  <p *ngIf="!outingTypes.length">please wait...</p>
   `,
 })
 export class OutingTypeComponent implements OnInit {

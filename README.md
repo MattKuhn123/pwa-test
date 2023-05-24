@@ -30,4 +30,3 @@ They are used to older technology. They do not like:
 1. Drop-downs
 1. Animations
 1. Etc
-
