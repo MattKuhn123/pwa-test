@@ -4,11 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DepotComponent } from './depots/depot.component';
+import { DepotComponent } from './depot/depot.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { OutingTypeComponent } from './outing-type/outing-type.component';
 import { PopulationComponent } from './population/population.component';
-import { DepotService } from './depots/depot.service';
+import { DepotService } from './depot/depot.service';
 import { BiomeService } from './environment/biome.service';
 import { BreedService } from './population/breed.service';
 import { OutingTypeService } from './outing-type/outing-type.service';
