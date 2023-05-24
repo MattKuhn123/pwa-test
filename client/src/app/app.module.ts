@@ -5,11 +5,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DepotComponent } from './depots/depot.component';
-import { SettingComponent } from './setting/setting.component';
+import { EnvironmentComponent } from './environment/environment.component';
 import { OutingTypeComponent } from './outing-type/outing-type.component';
 import { PopulationComponent } from './population/population.component';
 import { DepotService } from './depots/depot.service';
-import { BiomeService } from './setting/biome.service';
+import { BiomeService } from './environment/biome.service';
 import { BreedService } from './population/breed.service';
 import { OutingTypeService } from './outing-type/outing-type.service';
 
@@ -32,7 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     DepotComponent,
     OutingTypeComponent,
     PopulationComponent,
-    SettingComponent,
+    EnvironmentComponent,
   ],
   imports: [
     BrowserModule,

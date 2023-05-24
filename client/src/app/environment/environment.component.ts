@@ -5,15 +5,15 @@ import { Biome } from './biome.model';
 import { StatesService } from '../states.service';
 
 @Component({
-  selector: 'app-setting',
+  selector: 'app-environment',
   styles: [
     'mat-card-content { display: flex; flex-direction: column  }'
   ],
   template: `
   <mat-card [formGroup]="formGroup">
     <mat-card-header>
-      <mat-card-title>Setting</mat-card-title>
-      <mat-card-subtitle>Setting details</mat-card-subtitle>
+      <mat-card-title>Environment</mat-card-title>
+      <mat-card-subtitle>Environment details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field formGroupName="biome" *ngIf="biomes.length">
@@ -50,7 +50,7 @@ import { StatesService } from '../states.service';
   </mat-card>
   `,
 })
-export class SettingComponent implements OnInit {
+export class EnvironmentComponent implements OnInit {
   protected biomes: Biome[] = [];
   @Input() formGroup!: FormGroup;
 

@@ -10,6 +10,6 @@ export class StatesService {
   
   public toSetDepot(): void { this._state.next("SET_DEPOT"); }
   public toSetOutingType(): void { this._state.next("SET_OUTING_TYPE"); }
-  public toSetSetting(): void { this._state.next("SET_SETTING"); }
+  public toSetEnvironment(): void { this._state.next("SET_ENVIRONMENT"); }
   public toSetPopulation(): void { this._state.next("SET_POPULATION"); }
 }

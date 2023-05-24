@@ -26,7 +26,7 @@ import { OutingType } from './outing-type.model';
     <mat-card-actions>
       <button 
         mat-button 
-        (click)="states.toSetSetting()"
+        (click)="states.toSetEnvironment()"
         [disabled]="!formGroup.valid">
         Next
       </button>

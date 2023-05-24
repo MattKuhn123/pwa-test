@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   styles: [
-    'div { max-width: 400px; margin: auto; }',
+    'div { max-width: 75%; min-width: 50%; margin: auto; }',
     'mat-toolbar { margin-bottom: 10px; }',
   ],
   template: `
@@ -25,10 +25,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         *ngSwitchCase="'SET_OUTING_TYPE'" 
         [formGroup]="outingTypeGroup"
       ></app-outing-type>
-      <app-setting 
-        *ngSwitchCase="'SET_SETTING'" 
-        [formGroup]="settingGroup"
-      ></app-setting>
+      <app-environment 
+        *ngSwitchCase="'SET_ENVIRONMENT'" 
+        [formGroup]="environmentGroup"
+      ></app-environment>
       <app-population 
         *ngSwitchCase="'SET_POPULATION'" 
         [formGroup]="populationGroup"
@@ -47,7 +47,7 @@ export class AppComponent {
 
   protected get depotGroup(): FormGroup { return this.formGroup.get('depot') as FormGroup; }
   protected get outingTypeGroup(): FormGroup { return this.formGroup.get('outingType') as FormGroup; }
-  protected get settingGroup(): FormGroup { return this.formGroup.get('setting') as FormGroup; }
+  protected get environmentGroup(): FormGroup { return this.formGroup.get('environment') as FormGroup; }
   protected get populationGroup(): FormGroup { return this.formGroup.get('population') as FormGroup; }
   
   protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
@@ -64,21 +64,29 @@ export class AppComponent {
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),
-      setting: this.formBuilder.group({
-        date: this.formBuilder.control('', Validators.required),
-        leader: this.formBuilder.control('', Validators.required),
-        biome: this.formBuilder.group({
-          id: this.formBuilder.control('', Validators.required),
-          name: this.formBuilder.control('', Validators.required),
-        }),
+      environment: this.newEnvironmentGroup(),
+      population: this.newPopulationGroup()
+    });
+  }
+
+  private newPopulationGroup(): FormGroup {
+    return this.formBuilder.group({
+      breed: this.formBuilder.group({
+        id: this.formBuilder.control('', Validators.required),
+        name: this.formBuilder.control('', Validators.required),
       }),
-      population: this.formBuilder.group({
-        breed: this.formBuilder.group({
-          id: this.formBuilder.control('', Validators.required),
-          name: this.formBuilder.control('', Validators.required),
-        }),
-        count: this.formBuilder.control('', Validators.required),
-      })
+      count: this.formBuilder.control('', [Validators.required, Validators.min(0)]),
+    });
+  }
+
+  private newEnvironmentGroup(): FormGroup {
+    return this.formBuilder.group({
+      date: this.formBuilder.control('', Validators.required),
+      leader: this.formBuilder.control('', Validators.required),
+      biome: this.formBuilder.group({
+        id: this.formBuilder.control('', Validators.required),
+        name: this.formBuilder.control('', Validators.required),
+      }),
     });
   }
 }
