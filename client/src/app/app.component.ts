@@ -41,6 +41,8 @@ export class AppComponent implements OnInit {
   protected currentState!: string;
   protected formGroup!: FormGroup;
 
+  protected loadCount: number = 0;
+
   protected get stationGroup(): FormGroup { return this.formGroup.get('station') as FormGroup; }
   protected get sessionTypeGroup(): FormGroup { return this.formGroup.get('sessionType') as FormGroup; }
   protected get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
@@ -86,7 +88,8 @@ export class AppComponent implements OnInit {
     this.stationGroup.valueChanges.subscribe(_ => {
       const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
       if (lastSession) {
-        this.formGroup.setValue(lastSession);
+        console.log(`loadCount: ${this.loadCount}`);
+        this.formGroup.setValue(lastSession, { emitEvent: false });
       }
     })
 
