@@ -49,18 +49,6 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
-  public get canSave(): boolean {
-    if (!this.stationGroupIdValue) {
-      return false;
-    }
-
-    if (this.currentState === 'SET_STATION') {
-      return false;
-    }
-
-    return true;
-  }
-
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
     private sessionTypeSvc: SessionTypeService,
@@ -91,7 +79,11 @@ export class AppComponent implements OnInit {
     })
 
     this.formGroup.valueChanges.subscribe(_ => {
-      if (!this.canSave) {
+      if (!this.stationGroupIdValue) {
+        return;
+      }
+  
+      if (this.currentState === 'SET_STATION') {
         return;
       }
 
