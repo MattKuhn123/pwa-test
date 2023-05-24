@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { StatationComponent } from './station/station.component';
+import { StationComponent } from './station/station.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { SessionComponent } from './session/session.component';
 import { PopulationComponent } from './population/population.component';
@@ -32,7 +32,7 @@ import { SaveService } from './save.service';
 @NgModule({
   declarations: [
     AppComponent,
-    StatationComponent,
+    StationComponent,
     SessionComponent,
     PopulationComponent,
     EnvironmentComponent,

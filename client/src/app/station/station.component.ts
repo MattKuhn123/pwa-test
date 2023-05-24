@@ -34,7 +34,7 @@ import { StatesService } from '../states.service';
   </mat-card>
   `,
 })
-export class StatationComponent {
+export class StationComponent {
   protected displayedColumns: string[] = ['id', 'name'];
   protected stations: Station[] = [];
   @Input() stationGroup!: FormGroup;
