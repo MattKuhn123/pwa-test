@@ -12,15 +12,13 @@ import { SessionTypeService } from './session-type.service';
       <mat-card-title>Session</mat-card-title>
       <mat-card-subtitle>Enter session details</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-form-field [formGroup]="sessionTypeGroup">
+    <mat-card-content [formGroup]="sessionTypeGroup">
         <mat-label>Session Type</mat-label>
-        <mat-select formControlName="id">
-          <mat-option *ngFor="let sessionType of sessionTypes" [value]="sessionType.id">
+        <mat-radio-group formControlName="id">
+          <mat-radio-button *ngFor="let sessionType of sessionTypes" [value]="sessionType.id">
             {{ sessionType.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          </mat-radio-button>
+        </mat-radio-group>
     </mat-card-content>
     <mat-card-actions *ngIf="sessionType.id">
       <mat-button-toggle-group [(ngModel)]="selectedIdx">

@@ -24,6 +24,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SaveService } from './save.service';
@@ -57,6 +58,7 @@ import { SaveService } from './save.service';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatRadioModule,
     MatSelectModule,
     MatToolbarModule
   ],
