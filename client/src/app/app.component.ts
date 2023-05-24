@@ -71,7 +71,7 @@ export class AppComponent {
 
   private newPopulationGroup(): FormGroup {
     return this.formBuilder.group({
-      breed: this.formBuilder.group({
+      species: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),

@@ -14,7 +14,7 @@ import { StatesService } from '../states.service';
       <mat-card-subtitle>Population details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field formGroupName="breed" *ngIf="species.length">
+      <mat-form-field formGroupName="species" *ngIf="species.length">
         <mat-label>Species</mat-label>
         <mat-select formControlName="id">
           <mat-option *ngFor="let spec of species" [value]="spec.id">
@@ -44,16 +44,16 @@ export class PopulationComponent implements OnInit {
   protected species: Species[] = [];
   @Input() formGroup!: FormGroup;
 
-  protected get breedGroup(): FormGroup { return this.formGroup.get('breed') as FormGroup; }
+  protected get speciesGroup(): FormGroup { return this.formGroup.get('species') as FormGroup; }
   
-  constructor(protected states: StatesService, breedSvc: SpeciesService) {
-    breedSvc.getSpecies().subscribe(species => this.species = species);
+  constructor(protected states: StatesService, speciesSvc: SpeciesService) {
+    speciesSvc.getSpecies().subscribe(species => this.species = species);
   }
 
   ngOnInit(): void {
     // TODO : This seems like a lot of code to write
-    this.breedGroup.get("id")?.valueChanges.subscribe(id => {
-      this.breedGroup.get("name")?.setValue(this.species.find(b => b.id === id)?.name);
+    this.speciesGroup.get("id")?.valueChanges.subscribe(id => {
+      this.speciesGroup.get("name")?.setValue(this.species.find(b => b.id === id)?.name);
     });
   }
 }
