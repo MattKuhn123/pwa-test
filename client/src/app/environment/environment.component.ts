@@ -11,10 +11,6 @@ import { StatesService } from '../states.service';
   ],
   template: `
   <mat-card [formGroup]="environmentGroup">
-    <mat-card-header>
-      <mat-card-title>Environment</mat-card-title>
-      <mat-card-subtitle>Environment details</mat-card-subtitle>
-    </mat-card-header>
     <mat-card-content>
       <mat-form-field formGroupName="habitat" *ngIf="habitats.length">
         <mat-label>Habitat</mat-label>
@@ -32,9 +28,8 @@ import { StatesService } from '../states.service';
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Choose a date</mat-label>
+        <mat-label>Date</mat-label>
         <input formControlName="date" matInput [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -42,14 +37,14 @@ import { StatesService } from '../states.service';
     <mat-card-actions>
       <button
         mat-button
-        (click)="goRaised.emit()"
+        (click)="go.emit()"
       >Go</button>
     </mat-card-actions>
   </mat-card>
   `,
 })
 export class EnvironmentComponent implements OnInit {
-  @Output() goRaised: EventEmitter<void> = new EventEmitter<void>();
+  @Output() go: EventEmitter<void> = new EventEmitter<void>();
   @Input() environmentGroup!: FormGroup;
   protected habitats: Habitat[] = [];
 

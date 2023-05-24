@@ -9,10 +9,6 @@ import { StatesService } from '../states.service';
   styles: [ ],
   template: `
   <mat-card [formGroup]="populationGroup">
-    <mat-card-header>
-      <mat-card-title>Population</mat-card-title>
-      <mat-card-subtitle>Population details</mat-card-subtitle>
-    </mat-card-header>
     <mat-card-content>
       <mat-form-field formGroupName="species" *ngIf="species.length">
         <mat-label>Species</mat-label>
@@ -32,14 +28,14 @@ import { StatesService } from '../states.service';
     <mat-card-actions>
       <button
         mat-button
-        (click)="doneRaised.emit()"
+        (click)="done.emit()"
       >Done</button>
     </mat-card-actions>
   </mat-card>
   `,
 })
 export class PopulationComponent implements OnInit {
-  @Output() doneRaised: EventEmitter<void> = new EventEmitter<void>();
+  @Output() done: EventEmitter<void> = new EventEmitter<void>();
   @Input() populationGroup!: FormGroup;
   protected species: Species[] = [];
 

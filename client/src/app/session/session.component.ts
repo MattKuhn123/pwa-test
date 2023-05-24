@@ -31,17 +31,15 @@ import { SessionTypeService } from './session-type.service';
     </mat-card-actions>
   </mat-card>
 
-  <pre> {{ state }} </pre>
-  
   <app-environment
     *ngIf="sessionType.id && state === 'ENVIRONMENT'"
     [environmentGroup]="environmentGroup"
-    (goRaised)="state = 'POPULATION'"
+    (go)="state = 'POPULATION'"
   ></app-environment>
   <app-population
     *ngIf="sessionType.id && state === 'POPULATION'"
     [populationGroup]="populationGroup"
-    (doneRaised)="state = 'ENVIRONMENT'"
+    (done)="state = 'ENVIRONMENT'"
   ></app-population>
   `,
 })
