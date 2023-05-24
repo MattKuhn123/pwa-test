@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SaveService } from './save.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HabitatService,
     SpeciesService,
     StationService,
+    SaveService,
     SessionTypeService
   ],
   bootstrap: [ AppComponent ]

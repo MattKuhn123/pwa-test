@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StatesService } from './states.service';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SessionTypeService } from './session/session-type.service';
+import { SaveService } from './save.service';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,7 @@ import { SessionTypeService } from './session/session-type.service';
   <pre *ngIf="formGroup">{{ json }}</pre>
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   protected currentState!: string;
   protected formGroup!: FormGroup;
 
@@ -45,9 +46,27 @@ export class AppComponent {
   protected get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
   protected get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
+  private get stationGroupName(): FormControl { return this.stationGroup.get("name") as FormControl; }
+  private get stationGroupNameValue(): string { return this.stationGroupName?.getRawValue(); }
+  private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
+  private get stationGroupIdValue(): FormControl { return this.stationGroupId?.getRawValue(); }
+
+  public get canSave(): boolean {
+    if (!this.stationGroupNameValue || !this.stationGroupIdValue) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public get saveSessionKey(): string { return `${this.stationGroupNameValue}${this.stationGroupIdValue}`; }
+
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
-    private sessionTypeSvc: SessionTypeService) {
+    private sessionTypeSvc: SessionTypeService,
+    private saveSvc: SaveService) { }
+
+  ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
 
     this.formGroup = this.formBuilder.group({
@@ -61,6 +80,19 @@ export class AppComponent {
       }),
       gillingRuns: this.formBuilder.array(this.sessionTypeSvc.GILLING_RUNS.map(_ => this.newRunGroup())),
       electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
+    });
+
+    const lastSession: any = this.saveSvc.load("test");
+    if (lastSession) {
+      this.formGroup.setValue(lastSession);
+    }
+
+    this.formGroup.valueChanges.subscribe(_ => {
+      if (!this.canSave) {
+        return;
+      }
+
+      this.saveSvc.save(this.saveSessionKey, this.formGroup.getRawValue());
     });
   }
 
