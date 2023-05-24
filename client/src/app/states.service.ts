@@ -5,9 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StatesService {
-  private _state: BehaviorSubject<string> = new BehaviorSubject('SET_STATION');
-  public get state(): Observable<string> { return this._state.asObservable(); }
+  private state$: BehaviorSubject<'SET_STATION' | 'SET_SESSION'> = new BehaviorSubject('SET_STATION' as 'SET_STATION' | 'SET_SESSION');
+  public get state(): Observable<'SET_STATION' | 'SET_SESSION'> { return this.state$.asObservable(); }
   
-  public toSetStation(): void { this._state.next("SET_STATION"); }
-  public toSetSession(): void { this._state.next("SET_SESSION"); }
+  public toSetStation(): void { this.state$.next("SET_STATION"); }
+  public toSetSession(): void { this.state$.next("SET_SESSION"); }
 }
