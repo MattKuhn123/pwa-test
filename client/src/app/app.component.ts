@@ -46,20 +46,20 @@ export class AppComponent implements OnInit {
   protected get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
   protected get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
-  private get stationGroupName(): FormControl { return this.stationGroup.get("name") as FormControl; }
-  private get stationGroupNameValue(): string { return this.stationGroupName?.getRawValue(); }
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
-  private get stationGroupIdValue(): FormControl { return this.stationGroupId?.getRawValue(); }
+  private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
   public get canSave(): boolean {
-    if (!this.stationGroupNameValue || !this.stationGroupIdValue) {
+    if (!this.stationGroupIdValue) {
+      return false;
+    }
+
+    if (this.currentState === 'SET_STATION') {
       return false;
     }
 
     return true;
   }
-
-  public get saveSessionKey(): string { return `${this.stationGroupNameValue}${this.stationGroupIdValue}`; }
 
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
@@ -82,17 +82,20 @@ export class AppComponent implements OnInit {
       electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
     });
 
-    const lastSession: any = this.saveSvc.load("test");
-    if (lastSession) {
-      this.formGroup.setValue(lastSession);
-    }
+
+    this.stationGroup.valueChanges.subscribe(_ => {
+      const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
+      if (lastSession) {
+        this.formGroup.setValue(lastSession);
+      }
+    })
 
     this.formGroup.valueChanges.subscribe(_ => {
       if (!this.canSave) {
         return;
       }
 
-      this.saveSvc.save(this.saveSessionKey, this.formGroup.getRawValue());
+      this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
     });
   }
 
