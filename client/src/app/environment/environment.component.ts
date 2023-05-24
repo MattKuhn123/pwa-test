@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HabitatService } from './habitat.service';
 import { Habitat } from './habitat.model';
@@ -10,7 +10,7 @@ import { StatesService } from '../states.service';
     'mat-card-content { display: flex; flex-direction: column  }'
   ],
   template: `
-  <mat-card [formGroup]="formGroup">
+  <mat-card [formGroup]="environmentGroup">
     <mat-card-header>
       <mat-card-title>Environment</mat-card-title>
       <mat-card-subtitle>Environment details</mat-card-subtitle>
@@ -40,22 +40,26 @@ import { StatesService } from '../states.service';
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
+      <button
+        mat-button
+        (click)="goRaised.emit()"
+      >Go</button>
     </mat-card-actions>
   </mat-card>
   `,
 })
 export class EnvironmentComponent implements OnInit {
+  @Output() goRaised: EventEmitter<void> = new EventEmitter<void>();
+  @Input() environmentGroup!: FormGroup;
   protected habitats: Habitat[] = [];
-  @Input() formGroup!: FormGroup;
 
-  protected get habitatGroup(): FormGroup { return this.formGroup.get('habitat') as FormGroup; }
+  protected get habitatGroup(): FormGroup { return this.environmentGroup.get('habitat') as FormGroup; }
   
   constructor(protected states: StatesService, habitatSvc: HabitatService) {
     habitatSvc.getHabitats().subscribe(habitats => this.habitats = habitats);
   }
 
   ngOnInit(): void {
-    // TODO : This seems like a lot of code to write
     this.habitatGroup.get("id")?.valueChanges.subscribe(id => {
       this.habitatGroup.get("name")?.setValue(this.habitats.find(b => b.id === id)?.name);
     });

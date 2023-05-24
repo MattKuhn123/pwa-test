@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { StatesService } from './states.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SessionType } from './session-type/session-type.model';
-import { SessionTypeService } from './session-type/session-type.service';
-
-const GILLING_RUNS: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
-const ELECTROCUTING_RUNS: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+import { SessionTypeService } from './session/session-type.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +25,8 @@ const ELECTROCUTING_RUNS: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
       <app-session
         *ngSwitchCase="'SET_SESSION'"
         [sessionTypeGroup]="sessionTypeGroup"
+        [gillingRunsArray]="gillingRunsArray"
+        [electrocutingRunsArray]="electrocutingRunsArray"
       ></app-session>
       <p *ngSwitchDefault>
         Invalid state, please go back
@@ -47,13 +45,9 @@ export class AppComponent {
   protected get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
   protected get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
-  protected get sessionType(): SessionType { return this.sessionTypeGroup.getRawValue() as SessionType; }
-  protected get isGilling(): boolean { return this.sessionType === this.sessionTypeSvc.GILLING; }
-  protected get isElectrocuting(): boolean {  return this.sessionType === this.sessionTypeSvc.ELETROCUTING; }
-
   constructor(protected state: StatesService,
-    private sessionTypeSvc: SessionTypeService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private sessionTypeSvc: SessionTypeService) {
     this.state.state.subscribe(nextState => this.currentState = nextState);
 
     this.formGroup = this.formBuilder.group({
@@ -65,9 +59,8 @@ export class AppComponent {
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),
-
-      gillingRuns: this.formBuilder.array(GILLING_RUNS.map(_ => this.newRunGroup())),
-      electrocutingRuns: this.formBuilder.array(ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
+      gillingRuns: this.formBuilder.array(this.sessionTypeSvc.GILLING_RUNS.map(_ => this.newRunGroup())),
+      electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
     });
   }
 

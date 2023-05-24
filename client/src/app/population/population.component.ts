@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SpeciesService } from './species.service';
 import { Species } from './species.model';
@@ -8,7 +8,7 @@ import { StatesService } from '../states.service';
   selector: 'app-population',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="formGroup">
+  <mat-card [formGroup]="populationGroup">
     <mat-card-header>
       <mat-card-title>Population</mat-card-title>
       <mat-card-subtitle>Population details</mat-card-subtitle>
@@ -30,22 +30,26 @@ import { StatesService } from '../states.service';
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
+      <button
+        mat-button
+        (click)="doneRaised.emit()"
+      >Done</button>
     </mat-card-actions>
   </mat-card>
   `,
 })
 export class PopulationComponent implements OnInit {
+  @Output() doneRaised: EventEmitter<void> = new EventEmitter<void>();
+  @Input() populationGroup!: FormGroup;
   protected species: Species[] = [];
-  @Input() formGroup!: FormGroup;
 
-  protected get speciesGroup(): FormGroup { return this.formGroup.get('species') as FormGroup; }
+  protected get speciesGroup(): FormGroup { return this.populationGroup.get('species') as FormGroup; }
   
   constructor(protected states: StatesService, speciesSvc: SpeciesService) {
     speciesSvc.getSpecies().subscribe(species => this.species = species);
   }
 
   ngOnInit(): void {
-    // TODO : This seems like a lot of code to write
     this.speciesGroup.get("id")?.valueChanges.subscribe(id => {
       this.speciesGroup.get("name")?.setValue(this.species.find(b => b.id === id)?.name);
     });

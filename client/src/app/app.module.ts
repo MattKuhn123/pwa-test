@@ -7,18 +7,18 @@ import { AppComponent } from './app.component';
 import { StatationComponent } from './station/station.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { SessionComponent } from './session/session.component';
-import { SessionTypeComponent } from './session-type/session-type.component';
 import { PopulationComponent } from './population/population.component';
 import { StationService } from './station/station.service';
 import { HabitatService } from './environment/habitat.service';
 import { SpeciesService } from './population/species.service';
-import { SessionTypeService } from './session-type/session-type.service';
+import { SessionTypeService } from './session/session-type.service';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +32,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AppComponent,
     StatationComponent,
     SessionComponent,
-    SessionTypeComponent,
     PopulationComponent,
     EnvironmentComponent,
   ],
@@ -50,6 +49,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
 
     MatNativeDateModule,
+    MatButtonToggleModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
