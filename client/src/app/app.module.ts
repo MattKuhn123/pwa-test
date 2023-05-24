@@ -23,8 +23,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SaveService } from './save.service';
 
@@ -56,8 +56,8 @@ import { SaveService } from './save.service';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
     MatSelectModule,
-    MatTableModule,
     MatToolbarModule
   ],
   providers: [

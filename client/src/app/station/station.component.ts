@@ -6,9 +6,7 @@ import { StatesService } from '../states.service';
 
 @Component({
   selector: 'app-station',
-  styles: [
-    '.selected { background-color: aliceblue }', // TODO : issues with hover...
-  ],
+  styles: [ ],
   template: `
   <mat-card>
     <mat-card-header>
@@ -16,23 +14,13 @@ import { StatesService } from '../states.service';
       <mat-card-subtitle>Station details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <table *ngIf="stations.length" mat-table [dataSource]="stations">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> Id </th>
-          <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr 
-          mat-row 
-          *matRowDef="let row; columns: displayedColumns;"
-          (click)="stationGroup.setValue(row)"
-          [class.selected]="row.id === stationGroup.get('id')?.getRawValue()"
-        ></tr>
-      </table>
+      <mat-selection-list [multiple]="false">
+        <mat-list-option 
+          *ngFor="let station of stations" 
+          [value]="station.id"
+          (click)="stationGroup.setValue(station)"
+        >{{ station.name }}</mat-list-option>
+      </mat-selection-list>
       <p *ngIf="!stations.length">please wait...</p>
     </mat-card-content>
     <mat-card-actions>
