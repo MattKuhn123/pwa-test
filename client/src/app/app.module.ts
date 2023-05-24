@@ -10,7 +10,7 @@ import { OutingComponent } from './outing/outing.component';
 import { OutingTypeComponent } from './outing-type/outing-type.component';
 import { PopulationComponent } from './population/population.component';
 import { StationService } from './station/station.service';
-import { BiomeService } from './environment/biome.service';
+import { HabitatService } from './environment/habitat.service';
 import { SpeciesService } from './population/species.service';
 import { OutingTypeService } from './outing-type/outing-type.service';
 
@@ -60,7 +60,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule
   ],
   providers: [
-    BiomeService,
+    HabitatService,
     SpeciesService,
     StationService,
     OutingTypeService

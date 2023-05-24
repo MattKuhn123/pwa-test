@@ -83,7 +83,7 @@ export class AppComponent {
     return this.formBuilder.group({
       date: this.formBuilder.control('', Validators.required),
       leader: this.formBuilder.control('', Validators.required),
-      biome: this.formBuilder.group({
+      habitat: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),

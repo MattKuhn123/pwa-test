@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { BiomeService } from './biome.service';
-import { Biome } from './biome.model';
+import { HabitatService } from './habitat.service';
+import { Habitat } from './habitat.model';
 import { StatesService } from '../states.service';
 
 @Component({
@@ -16,15 +16,15 @@ import { StatesService } from '../states.service';
       <mat-card-subtitle>Environment details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field formGroupName="biome" *ngIf="biomes.length">
-        <mat-label>Biome</mat-label>
+      <mat-form-field formGroupName="habitat" *ngIf="habitats.length">
+        <mat-label>Habitat</mat-label>
         <mat-select formControlName="id">
-          <mat-option *ngFor="let biome of biomes" [value]="biome.id">
-            {{ biome.name }}
+          <mat-option *ngFor="let habitat of habitats" [value]="habitat.id">
+            {{ habitat.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <p *ngIf="!biomes.length">please wait...</p>
+      <p *ngIf="!habitats.length">please wait...</p>
 
       <mat-form-field>
         <mat-label>Leader</mat-label>
@@ -51,19 +51,19 @@ import { StatesService } from '../states.service';
   `,
 })
 export class EnvironmentComponent implements OnInit {
-  protected biomes: Biome[] = [];
+  protected habitats: Habitat[] = [];
   @Input() formGroup!: FormGroup;
 
-  protected get biomeGroup(): FormGroup { return this.formGroup.get('biome') as FormGroup; }
+  protected get habitatGroup(): FormGroup { return this.formGroup.get('habitat') as FormGroup; }
   
-  constructor(protected states: StatesService, biomeSvc: BiomeService) {
-    biomeSvc.getBiomes().subscribe(biomes => this.biomes = biomes);
+  constructor(protected states: StatesService, habitatSvc: HabitatService) {
+    habitatSvc.getHabitats().subscribe(habitats => this.habitats = habitats);
   }
 
   ngOnInit(): void {
     // TODO : This seems like a lot of code to write
-    this.biomeGroup.get("id")?.valueChanges.subscribe(id => {
-      this.biomeGroup.get("name")?.setValue(this.biomes.find(b => b.id === id)?.name);
+    this.habitatGroup.get("id")?.valueChanges.subscribe(id => {
+      this.habitatGroup.get("name")?.setValue(this.habitats.find(b => b.id === id)?.name);
     });
   }
 }

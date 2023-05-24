@@ -1,4 +1,4 @@
-export class Biome {
+export class Habitat {
   id: string;
   name: string;
 

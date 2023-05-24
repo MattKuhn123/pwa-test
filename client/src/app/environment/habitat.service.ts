@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Biome } from './biome.model';
+import { Habitat } from './habitat.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class BiomeService {
+export class HabitatService {
 
   constructor(private client: HttpClient) { }
 
-  public getBiomes(): Observable<Biome[]> {
+  public getHabitats(): Observable<Habitat[]> {
     return this.client
-      .get(`${environment.api}${environment.biomes}`)
-      .pipe(map((data: any) => data as Biome[]));
+      .get(`${environment.api}${environment.habitats}`)
+      .pipe(map((data: any) => data as Habitat[]));
   }
 }
