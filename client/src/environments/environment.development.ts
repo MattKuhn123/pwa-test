@@ -3,5 +3,4 @@ export const environment = {
   stations: '/stations.json',
   habitats: '/habitats.json',
   species: '/species.json',
-  outingTypes: '/outing-types.json',
 };

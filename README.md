@@ -17,10 +17,10 @@ This application is a MVP *(minimum viable product)* to reproduce their current 
 ### The biologists' process
 
 1. They select their station.  
-1. They select their outing type.  
-1. If they are *gilling,* they'll have 15 cycles.  
-1. If they are *electrecuting,* they'll have 12 cycles.  
-1. In each cycle, they need to record details about the environment, and details about the populations of fish.  
+1. They select their session type.  
+1. If they are *gilling,* they'll have 15 runs.  
+1. If they are *electrecuting,* they'll have 12 runs.  
+1. In each run, they need to record details about the environment, and details about the populations of fish.  
 
 ### The biologists' needs
 

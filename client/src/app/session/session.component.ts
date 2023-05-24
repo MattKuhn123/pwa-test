@@ -3,23 +3,26 @@ import { FormGroup } from '@angular/forms';
 import { StatesService } from '../states.service';
 
 @Component({
-  selector: 'app-outing',
+  selector: 'app-session',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="formGroup">
+  <mat-card>
     <mat-card-header>
-      <mat-card-title>Outing</mat-card-title>
-      <mat-card-subtitle>Enter outing details</mat-card-subtitle>
+      <mat-card-title>Session</mat-card-title>
+      <mat-card-subtitle>Enter session details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+      <app-session-type
+        [sessionTypeGroup]="sessionTypeGroup"
+      ></app-session-type>
     </mat-card-content>
     <mat-card-actions>
     </mat-card-actions>
   </mat-card>
   `,
 })
-export class OutingComponent implements OnInit {
-  @Input() formGroup!: FormGroup;
+export class SessionComponent implements OnInit {
+  @Input() sessionTypeGroup!: FormGroup;
 
   constructor(protected states: StatesService) { }
 

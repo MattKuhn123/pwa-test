@@ -6,13 +6,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { StatationComponent } from './station/station.component';
 import { EnvironmentComponent } from './environment/environment.component';
-import { OutingComponent } from './outing/outing.component';
-import { OutingTypeComponent } from './outing-type/outing-type.component';
+import { SessionComponent } from './session/session.component';
+import { SessionTypeComponent } from './session-type/session-type.component';
 import { PopulationComponent } from './population/population.component';
 import { StationService } from './station/station.service';
 import { HabitatService } from './environment/habitat.service';
 import { SpeciesService } from './population/species.service';
-import { OutingTypeService } from './outing-type/outing-type.service';
+import { SessionTypeService } from './session-type/session-type.service';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,8 +31,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   declarations: [
     AppComponent,
     StatationComponent,
-    OutingComponent,
-    OutingTypeComponent,
+    SessionComponent,
+    SessionTypeComponent,
     PopulationComponent,
     EnvironmentComponent,
   ],
@@ -63,7 +63,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HabitatService,
     SpeciesService,
     StationService,
-    OutingTypeService
+    SessionTypeService
   ],
   bootstrap: [ AppComponent ]
 })

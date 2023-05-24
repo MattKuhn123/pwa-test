@@ -29,8 +29,8 @@ import { StatesService } from '../states.service';
         <tr 
           mat-row 
           *matRowDef="let row; columns: displayedColumns;"
-          (click)="this.formGroup.setValue(row)"
-          [class.selected]="row.id === formGroup.get('id')?.getRawValue()"
+          (click)="stationGroup.setValue(row)"
+          [class.selected]="row.id === stationGroup.get('id')?.getRawValue()"
         ></tr>
       </table>
       <p *ngIf="!stations.length">please wait...</p>
@@ -38,8 +38,8 @@ import { StatesService } from '../states.service';
     <mat-card-actions>
       <button 
         mat-button 
-        (click)="states.toSetOutingType()"
-        [disabled]="!formGroup.valid">
+        (click)="states.toSetSession()"
+        [disabled]="!stationGroup.valid">
         Next
       </button>
     </mat-card-actions>
@@ -49,7 +49,7 @@ import { StatesService } from '../states.service';
 export class StatationComponent {
   protected displayedColumns: string[] = ['id', 'name'];
   protected stations: Station[] = [];
-  @Input() formGroup!: FormGroup;
+  @Input() stationGroup!: FormGroup;
 
   constructor(stationSvc: StationService, protected states: StatesService) {
     stationSvc.getStations().subscribe(stations => this.stations = stations);

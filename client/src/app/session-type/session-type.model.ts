@@ -1,4 +1,4 @@
-export class OutingType {
+export class SessionType {
   id: string;
   name: string;
 

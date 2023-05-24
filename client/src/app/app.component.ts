@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { StatesService } from './states.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SessionType } from './session-type/session-type.model';
+import { SessionTypeService } from './session-type/session-type.service';
+
+const GILLING_RUNS: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
+const ELECTROCUTING_RUNS: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
 
 @Component({
   selector: 'app-root',
@@ -19,20 +24,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     <div [ngSwitch]="currentState">
       <app-station
         *ngSwitchCase="'SET_STATION'"
-        [formGroup]="stationGroup"
+        [stationGroup]="stationGroup"
         ></app-station>
-      <app-outing-type
-        *ngSwitchCase="'SET_OUTING_TYPE'"
-        [formGroup]="outingTypeGroup"
-      ></app-outing-type>
-      <app-environment
-        *ngSwitchCase="'SET_ENVIRONMENT'"
-        [formGroup]="environmentGroup"
-      ></app-environment>
-      <app-population
-        *ngSwitchCase="'SET_POPULATION'"
-        [formGroup]="populationGroup"
-      ></app-population>
+      <app-session
+        *ngSwitchCase="'SET_SESSION'"
+        [sessionTypeGroup]="sessionTypeGroup"
+      ></app-session>
       <p *ngSwitchDefault>
         Invalid state, please go back
       </p>
@@ -46,13 +43,17 @@ export class AppComponent {
   protected formGroup!: FormGroup;
 
   protected get stationGroup(): FormGroup { return this.formGroup.get('station') as FormGroup; }
-  protected get outingTypeGroup(): FormGroup { return this.formGroup.get('outingType') as FormGroup; }
-  protected get environmentGroup(): FormGroup { return this.formGroup.get('environment') as FormGroup; }
-  protected get populationGroup(): FormGroup { return this.formGroup.get('population') as FormGroup; }
-  
-  protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
+  protected get sessionTypeGroup(): FormGroup { return this.formGroup.get('sessionType') as FormGroup; }
+  protected get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
+  protected get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
-  constructor(protected state: StatesService, private formBuilder: FormBuilder) {
+  protected get sessionType(): SessionType { return this.sessionTypeGroup.getRawValue() as SessionType; }
+  protected get isGilling(): boolean { return this.sessionType === this.sessionTypeSvc.GILLING; }
+  protected get isElectrocuting(): boolean {  return this.sessionType === this.sessionTypeSvc.ELETROCUTING; }
+
+  constructor(protected state: StatesService,
+    private sessionTypeSvc: SessionTypeService,
+    private formBuilder: FormBuilder) {
     this.state.state.subscribe(nextState => this.currentState = nextState);
 
     this.formGroup = this.formBuilder.group({
@@ -60,33 +61,36 @@ export class AppComponent {
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),
-      outingType: this.formBuilder.group({
+      sessionType: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),
-      environment: this.newEnvironmentGroup(),
-      population: this.newPopulationGroup()
+
+      gillingRuns: this.formBuilder.array(GILLING_RUNS.map(_ => this.newRunGroup())),
+      electrocutingRuns: this.formBuilder.array(ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
     });
   }
 
-  private newPopulationGroup(): FormGroup {
+  private newRunGroup(): FormGroup {
     return this.formBuilder.group({
-      species: this.formBuilder.group({
-        id: this.formBuilder.control('', Validators.required),
-        name: this.formBuilder.control('', Validators.required),
+      population: this.formBuilder.group({
+        species: this.formBuilder.group({
+          id: this.formBuilder.control('', Validators.required),
+          name: this.formBuilder.control('', Validators.required),
+        }),
+        count: this.formBuilder.control('', [Validators.required, Validators.min(0)]),
       }),
-      count: this.formBuilder.control('', [Validators.required, Validators.min(0)]),
-    });
+      environment: this.formBuilder.group({
+        date: this.formBuilder.control('', Validators.required),
+        leader: this.formBuilder.control('', Validators.required),
+        habitat: this.formBuilder.group({
+          id: this.formBuilder.control('', Validators.required),
+          name: this.formBuilder.control('', Validators.required),
+        }),
+      })
+    })
   }
 
-  private newEnvironmentGroup(): FormGroup {
-    return this.formBuilder.group({
-      date: this.formBuilder.control('', Validators.required),
-      leader: this.formBuilder.control('', Validators.required),
-      habitat: this.formBuilder.group({
-        id: this.formBuilder.control('', Validators.required),
-        name: this.formBuilder.control('', Validators.required),
-      }),
-    });
-  }
+  // Just for debugging
+  protected get json(): string { return JSON.stringify(this.formGroup.getRawValue(), null, 4); }
 }

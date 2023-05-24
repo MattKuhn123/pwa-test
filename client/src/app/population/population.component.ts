@@ -30,12 +30,6 @@ import { StatesService } from '../states.service';
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button 
-        mat-button 
-        (click)="states.toSetPopulation()"
-        [disabled]="!formGroup.valid">
-        Done
-      </button>
     </mat-card-actions>
   </mat-card>
   `,
