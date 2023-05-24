@@ -23,7 +23,7 @@ import { SessionTypeService } from './session-type.service';
     <mat-card-actions *ngIf="sessionType.id">
       <mat-button-toggle-group [(ngModel)]="selectedIdx">
         <!-- TODO : Make sure these don't go flying off the page -->
-        <mat-button-toggle *ngFor="let idx of idxs" [value]="idx">{{ idx + 1}}</mat-button-toggle>
+        <mat-button-toggle *ngFor="let idx of idxs" [value]="idx">{{ idx + 1 }}</mat-button-toggle>
       </mat-button-toggle-group>
     </mat-card-actions>
   </mat-card>
