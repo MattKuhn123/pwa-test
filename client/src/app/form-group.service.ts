@@ -14,15 +14,14 @@ export class FormGroupService {
   protected currentState!: string;
   
   public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns }
+  public get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
   public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns }
+  public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
   public get formGroup(): FormGroup { return this._formGroup }
 
   public get stationControl(): FormControl { return this.formGroup.get('station') as FormControl; }
   public get stationControlValue(): string { return this.stationControl?.getRawValue(); }
-  
-  public get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
-  public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
   
   public get sessionTypeControl(): FormControl { return this.formGroup.get('sessionType') as FormControl; }
   public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes }
@@ -43,13 +42,13 @@ export class FormGroupService {
   public getSpeciesGroup(sIdx: number): FormGroup { return this.getPopulationGroup(sIdx).get('species') as FormGroup; }
 
   constructor(private formBuilder: FormBuilder,
-    private state: StateService,
+    private stateSvc: StateService,
     private saveSvc: SaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();
     this.stationControl.valueChanges.subscribe(() => this.load());
     this.formGroup.valueChanges.subscribe(() => this.save());
-    this.state.state.subscribe(nextState => this.currentState = nextState);
+    this.stateSvc.state.subscribe(nextState => this.currentState = nextState);
   }
   
   private newFormGroup(): FormGroup {
