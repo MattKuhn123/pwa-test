@@ -10,6 +10,7 @@ import { StateService } from './state.service';
   providedIn: 'root'
 })
 export class FormGroupService {
+  public get formGroup(): FormGroup { return this._formGroup; }
   public _formGroup!: FormGroup;
   protected currentState!: string;
   
@@ -20,8 +21,6 @@ export class FormGroupService {
   public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns; }
   public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
-  public get formGroup(): FormGroup { return this._formGroup; }
-
   public get stationControl(): FormControl { return this.formGroup.get('station') as FormControl; }
   public get stationControlValue(): string { return this.stationControl?.getRawValue(); }
   
@@ -29,7 +28,6 @@ export class FormGroupService {
   public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes; }
   public get sessionType(): string { return this.sessionTypeControl.getRawValue() as string; }
   public get isGilling(): boolean { return this.sessionType === this.sessionTypeSvc.gilling.id; }
-  public get isElectrocuting(): boolean {  return this.sessionType === this.sessionTypeSvc.electrocuting.id; }
 
   public getRunGroup(sIdx: number): FormGroup {
     return this.isGilling
@@ -39,9 +37,6 @@ export class FormGroupService {
 
   public getEnvironmentGroup(sIdx: number): FormGroup { return this.getRunGroup(sIdx).get("environment") as FormGroup; }
   public getPopulationGroup(sIdx: number): FormGroup { return this.getRunGroup(sIdx).get("population") as FormGroup; }
-
-  public getHabitatGroup(sIdx: number): FormGroup { return this.getEnvironmentGroup(sIdx).get('habitat') as FormGroup; }
-  public getSpeciesGroup(sIdx: number): FormGroup { return this.getPopulationGroup(sIdx).get('species') as FormGroup; }
 
   constructor(private formBuilder: FormBuilder,
     private stateSvc: StateService,
