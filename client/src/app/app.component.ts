@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { StatesService } from './states.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { StatesService } from './states.service';
 import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
-import { Station } from './station/station.model';
 import { StationService } from './station/station.service';
-import { Observable } from 'rxjs';
+import { Station } from './station/station.model';
 
 @Component({
   selector: 'app-root',
