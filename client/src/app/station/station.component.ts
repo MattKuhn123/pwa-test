@@ -19,7 +19,7 @@ import { FormGroupService } from '../form-group.service';
         <mat-list-option 
           *ngFor="let station of stations" 
           [value]="station.id"
-          (click)="formGroupService.stationControl.setValue(station.id)"
+          (click)="fgSvc.stationControl.setValue(station.id)"
           data-testid="station-list-item"
         >{{ station.name }}</mat-list-option>
       </mat-selection-list>
@@ -29,7 +29,7 @@ import { FormGroupService } from '../form-group.service';
       <button 
         mat-button 
         (click)="states.toSetSession()"
-        [disabled]="!formGroupService.stationControl.valid"
+        [disabled]="!fgSvc.stationControl.valid"
       >Next</button>
     </mat-card-actions>
   </mat-card>
@@ -38,6 +38,5 @@ import { FormGroupService } from '../form-group.service';
 export class StationComponent {
   @Input() stations!: Station[];
 
-  constructor(protected states: StateService,
-    protected formGroupService: FormGroupService) { }
+  constructor(protected states: StateService, protected fgSvc: FormGroupService) { }
 }

@@ -8,7 +8,7 @@ import { FormGroupService } from '../form-group.service';
     'mat-card-content { display: flex; flex-direction: column  }'
   ],
   template: `
-  <mat-card [formGroup]="formGroupService.getEnvironmentGroup(sIdx)">
+  <mat-card [formGroup]="fgSvc.getEnvironmentGroup(sIdx)">
     <mat-card-content>
       <mat-form-field *ngIf="habitats">
         <mat-label>Habitat</mat-label>
@@ -46,5 +46,5 @@ export class EnvironmentComponent {
   @Input() sIdx!: number;
   @Input() habitats!: Habitat[];
 
-  constructor(protected formGroupService: FormGroupService) { }
+  constructor(protected fgSvc: FormGroupService) { }
 }

@@ -6,7 +6,7 @@ import { FormGroupService } from '../form-group.service';
   selector: 'app-population',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="formGroupService.getPopulationGroup(sIdx)">
+  <mat-card [formGroup]="fgSvc.getPopulationGroup(sIdx)">
     <mat-card-content>
       <mat-form-field *ngIf="species">
         <mat-label>Species</mat-label>
@@ -37,5 +37,5 @@ export class PopulationComponent {
   @Input() sIdx!: number;
   @Input() species!: Species[];
 
-  constructor(protected formGroupService: FormGroupService) { }
+  constructor(protected fgSvc: FormGroupService) { }
 }
