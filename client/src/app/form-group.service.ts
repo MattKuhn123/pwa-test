@@ -8,10 +8,10 @@ import { SessionType } from './session/session-type.model';
 })
 export class FormGroupService {
   public _formGroup!: FormGroup;
-  public get GILLING_RUNS(): number[] { return this.sessionTypeSvc.GILLING_RUNS };
-  public get ELECTROCUTING_RUNS(): number[] { return this.sessionTypeSvc.ELECTROCUTING_RUNS };
+  public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns }
+  public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns }
 
-  public get formGroup(): FormGroup { return this._formGroup };
+  public get formGroup(): FormGroup { return this._formGroup }
 
   public get stationGroup(): FormGroup { return this.formGroup.get('station') as FormGroup; }
   public get sessionTypeGroup(): FormGroup { return this.formGroup.get('sessionType') as FormGroup; }
@@ -23,8 +23,8 @@ export class FormGroupService {
 
   public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes }
   public get sessionType(): SessionType { return this.sessionTypeGroup.getRawValue() as SessionType; }
-  public get isGilling(): boolean { return this.sessionType.id === this.sessionTypeSvc.GILLING.id; }
-  public get isElectrocuting(): boolean {  return this.sessionType.id === this.sessionTypeSvc.ELETROCUTING.id; }
+  public get isGilling(): boolean { return this.sessionType.id === this.sessionTypeSvc.gilling.id; }
+  public get isElectrocuting(): boolean {  return this.sessionType.id === this.sessionTypeSvc.electrocuting.id; }
 
   public getRunGroup(sIdx: number): FormGroup {
     return this.isGilling
@@ -53,8 +53,8 @@ export class FormGroupService {
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
       }),
-      gillingRuns: this.formBuilder.array(this.sessionTypeSvc.GILLING_RUNS.map(_ => this.newRunGroup())),
-      electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
+      gillingRuns: this.formBuilder.array(this.sessionTypeSvc.gillingRuns.map(() => this.newRunGroup())),
+      electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.electrocutingRuns.map(() => this.newRunGroup()))
     });
   }
 

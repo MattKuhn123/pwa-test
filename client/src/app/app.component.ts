@@ -45,8 +45,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
     
-    this.formGroupSvc.stationGroup.valueChanges.subscribe(_ => this.load());
-    this.formGroupSvc.formGroup.valueChanges.subscribe(_ => this.save());
+    this.formGroupSvc.stationGroup.valueChanges.subscribe(() => this.load());
+    this.formGroupSvc.formGroup.valueChanges.subscribe(() => this.save());
   }
 
   private load(): void {

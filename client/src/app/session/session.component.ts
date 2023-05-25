@@ -51,8 +51,8 @@ export class SessionComponent implements OnInit {
 
   protected get idxs(): number[] {
     return this.formGroupService.isGilling
-      ? this.formGroupService.GILLING_RUNS
-      : this.formGroupService.ELECTROCUTING_RUNS;
+      ? this.formGroupService.gillingRuns
+      : this.formGroupService.electrocutingRuns;
   }
 
   constructor(protected formGroupService: FormGroupService) { }

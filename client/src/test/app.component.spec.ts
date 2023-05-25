@@ -24,14 +24,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
 
 const saveStubPartial: Partial<SaveService> = {
-  load(key: string): any { },
-  save(key: string, content: any): void { }
+  load(key: string): any {
+    console.log(key);
+  },
+  save(key: string, content: any): void {
+    console.log(key, content);
+  }
 }
 
 describe('App', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let saveStub: Partial<SaveService>;
   let stateService: StateService;
 
   beforeEach(() => {
@@ -69,7 +72,6 @@ describe('App', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    saveStub = TestBed.inject(SaveService);
     stateService = TestBed.inject(StateService);
   });
 
