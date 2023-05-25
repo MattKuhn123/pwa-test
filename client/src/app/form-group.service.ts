@@ -13,9 +13,9 @@ export class FormGroupService {
   public _formGroup!: FormGroup;
   protected currentState!: string;
   
-  public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns }
+  public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns; }
   public get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
-  public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns }
+  public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns; }
   public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
   public get formGroup(): FormGroup { return this._formGroup }
