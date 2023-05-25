@@ -18,13 +18,13 @@ export class FormGroupService {
   public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns; }
   public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 
-  public get formGroup(): FormGroup { return this._formGroup }
+  public get formGroup(): FormGroup { return this._formGroup; }
 
   public get stationControl(): FormControl { return this.formGroup.get('station') as FormControl; }
   public get stationControlValue(): string { return this.stationControl?.getRawValue(); }
   
   public get sessionTypeControl(): FormControl { return this.formGroup.get('sessionType') as FormControl; }
-  public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes }
+  public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes; }
   public get sessionType(): string { return this.sessionTypeControl.getRawValue() as string; }
   public get isGilling(): boolean { return this.sessionType === this.sessionTypeSvc.gilling.id; }
   public get isElectrocuting(): boolean {  return this.sessionType === this.sessionTypeSvc.electrocuting.id; }
