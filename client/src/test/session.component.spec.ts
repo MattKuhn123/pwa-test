@@ -39,7 +39,7 @@ const saveStubPartial: Partial<SaveService> = {
   }
 }
 
-describe('Station', () => {
+describe('Session', () => {
   let component: SessionComponent;
   let fixture: ComponentFixture<SessionComponent>;
   let fgSvc: FormGroupService;

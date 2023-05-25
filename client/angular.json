@@ -109,7 +109,13 @@
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "codeCoverageExclude": ["**/save.service.ts"]
+            "codeCoverageExclude": [
+              "**/save.service.ts",
+              "**/station.service.ts",
+              "**/session-type.service.ts",
+              "**/species.service.ts",
+              "**/habitat.service.ts"
+            ]
           }
         },
         "lint": {
