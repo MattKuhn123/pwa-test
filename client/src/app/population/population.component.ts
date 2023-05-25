@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SpeciesService } from './species.service';
 import { Species } from './species.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { Species } from './species.model';
   template: `
   <mat-card [formGroup]="populationGroup">
     <mat-card-content>
-      <mat-form-field formGroupName="species" *ngIf="species.length">
+      <mat-form-field formGroupName="species" *ngIf="species">
         <mat-label>Species</mat-label>
         <mat-select formControlName="id">
           <mat-option *ngFor="let spec of species" [value]="spec.id">
@@ -17,7 +16,7 @@ import { Species } from './species.model';
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <p *ngIf="!species.length">please wait...</p>
+      <p *ngIf="!species">please wait...</p>
 
       <mat-form-field>
         <mat-label>Count</mat-label>
@@ -36,13 +35,9 @@ import { Species } from './species.model';
 export class PopulationComponent implements OnInit {
   @Output() done: EventEmitter<void> = new EventEmitter<void>();
   @Input() populationGroup!: FormGroup;
-  protected species: Species[] = [];
+  @Input() species!: Species[];
 
   protected get speciesGroup(): FormGroup { return this.populationGroup.get('species') as FormGroup; }
-  
-  constructor(speciesSvc: SpeciesService) {
-    speciesSvc.getSpecies().subscribe(species => this.species = species);
-  }
 
   ngOnInit(): void {
     this.speciesGroup.get("id")?.valueChanges.subscribe(id => {

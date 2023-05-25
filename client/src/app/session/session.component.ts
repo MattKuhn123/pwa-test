@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { SessionType } from './session-type.model';
 import { SessionTypeService } from './session-type.service';
+import { Habitat } from '../environment/habitat.model';
+import { Species } from '../population/species.model';
 
 @Component({
   selector: 'app-session',
@@ -31,11 +33,13 @@ import { SessionTypeService } from './session-type.service';
   <app-environment
     *ngIf="sessionType.id && state === 'ENVIRONMENT'"
     [environmentGroup]="environmentGroup"
+    [habitats]="habitats"
     (go)="state = 'POPULATION'"
   ></app-environment>
   <app-population
     *ngIf="sessionType.id && state === 'POPULATION'"
     [populationGroup]="populationGroup"
+    [species]="species"
     (done)="state = 'ENVIRONMENT'"
   ></app-population>
   `,
@@ -44,6 +48,8 @@ export class SessionComponent implements OnInit {
   @Input() sessionTypeGroup!: FormGroup;
   @Input() gillingRunsArray!: FormArray;
   @Input() electrocutingRunsArray!: FormArray;
+  @Input() habitats!: Habitat[];
+  @Input() species!: Species[];
 
   protected state: 'ENVIRONMENT' | 'POPULATION' = 'ENVIRONMENT';
   protected selectedIdx: number = 0;

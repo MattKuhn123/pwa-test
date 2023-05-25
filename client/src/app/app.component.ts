@@ -1,18 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { StatesService } from './states.service';
 import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
-import { StationService } from './station/station.service';
 import { Station } from './station/station.model';
+import { Habitat } from './environment/habitat.model';
+import { Species } from './population/species.model';
 
 @Component({
   selector: 'app-root',
-  styles: [
-    'div { max-width: 75%; min-width: 50%; margin: auto; }',
-    'mat-toolbar { margin-bottom: 10px; }',
-  ],
+  styles: [ 'div { max-width: 75%; min-width: 50%; margin: auto; }' ],
   template: `
   <form [formGroup]="formGroup">
     <div [ngSwitch]="currentState">
@@ -27,6 +24,8 @@ import { Station } from './station/station.model';
         [sessionTypeGroup]="sessionTypeGroup"
         [gillingRunsArray]="gillingRunsArray"
         [electrocutingRunsArray]="electrocutingRunsArray"
+        [habitats]="habitats"
+        [species]="species"
         data-testid="app-session"
       ></app-session>
       <p *ngSwitchDefault>
@@ -39,6 +38,8 @@ import { Station } from './station/station.model';
 })
 export class AppComponent implements OnInit {
   @Input() stations!: Station[];
+  @Input() habitats!: Habitat[];
+  @Input() species!: Species[];
 
   protected currentState!: string;
   protected formGroup!: FormGroup;
@@ -51,18 +52,16 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
-
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
     private sessionTypeSvc: SessionTypeService,
-    private saveSvc: SaveService,
-    private stationSvc: StationService) { }
+    private saveSvc: SaveService) { }
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
     this.formGroup = this.newFormGroup();
-    this.stationGroup.valueChanges.subscribe(this.load);
-    this.formGroup.valueChanges.subscribe(this.save);
+    this.stationGroup.valueChanges.subscribe(_ => this.load());
+    this.formGroup.valueChanges.subscribe(_ => this.save());
   }
 
   private newFormGroup(): FormGroup {

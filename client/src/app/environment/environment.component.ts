@@ -11,7 +11,7 @@ import { Habitat } from './habitat.model';
   template: `
   <mat-card [formGroup]="environmentGroup">
     <mat-card-content>
-      <mat-form-field formGroupName="habitat" *ngIf="habitats.length">
+      <mat-form-field formGroupName="habitat" *ngIf="habitats">
         <mat-label>Habitat</mat-label>
         <mat-select formControlName="id">
           <mat-option *ngFor="let habitat of habitats" [value]="habitat.id">
@@ -19,7 +19,7 @@ import { Habitat } from './habitat.model';
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <p *ngIf="!habitats.length">please wait...</p>
+      <p *ngIf="!habitats">please wait...</p>
 
       <mat-form-field>
         <mat-label>Leader</mat-label>
@@ -45,13 +45,9 @@ import { Habitat } from './habitat.model';
 export class EnvironmentComponent implements OnInit {
   @Output() go: EventEmitter<void> = new EventEmitter<void>();
   @Input() environmentGroup!: FormGroup;
-  protected habitats: Habitat[] = [];
+  @Input() habitats!: Habitat[];
 
   protected get habitatGroup(): FormGroup { return this.environmentGroup.get('habitat') as FormGroup; }
-  
-  constructor(habitatSvc: HabitatService) {
-    habitatSvc.getHabitats().subscribe(habitats => this.habitats = habitats);
-  }
 
   ngOnInit(): void {
     this.habitatGroup.get("id")?.valueChanges.subscribe(id => {
