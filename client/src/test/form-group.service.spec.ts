@@ -95,7 +95,7 @@ describe('FormGroup', () => {
   });
 
   it('should use whatever the save service brings back whenever the station control value changes', () => {
-    // setting load to assume what the save service found
+    // set load to assume what the save service found
     load = {"station":"123","sessionType":"something","gillingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}],"electrocutingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}]};
     
     formGroupService.sessionTypeControl.setValue("random value");
@@ -107,7 +107,7 @@ describe('FormGroup', () => {
   });
 
   it('should clear out everything except the station control if there is nothing loaded', () => {
-    // setting load to 'null' assume the save service found nothing
+    // set load to 'null' to assume the save service found nothing
     load = null;
     
     formGroupService.sessionTypeControl.setValue("random value");
