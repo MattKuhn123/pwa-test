@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StateService } from './state.service';
-import { SaveService } from './save.service';
 import { Station } from './station/station.model';
 import { Habitat } from './environment/habitat.model';
 import { Species } from './population/species.model';
@@ -38,38 +37,10 @@ export class AppComponent implements OnInit {
 
   protected currentState!: string;
 
-  constructor(protected state: StateService,
-    private saveSvc: SaveService,
-    protected formGroupSvc: FormGroupService) { }
+  constructor(protected state: StateService, protected formGroupSvc: FormGroupService) { }
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
-    
-    this.formGroupSvc.stationGroup.valueChanges.subscribe(() => this.load());
-    this.formGroupSvc.formGroup.valueChanges.subscribe(() => this.save());
-  }
-
-  private load(): void {
-    const lastSession: any = this.saveSvc.load(this.formGroupSvc.stationGroupIdValue);
-    if (lastSession) {
-      this.formGroupSvc.formGroup.setValue(lastSession, { emitEvent: false });
-    } else {
-      const retainStation: Station = this.formGroupSvc.stationGroup.getRawValue();
-      this.formGroupSvc.formGroup.reset(undefined, { emitEvent: false });
-      this.formGroupSvc.stationGroup.setValue(retainStation, { emitEvent: false });
-    }
-  }
-
-  private save(): void {
-    if (!this.formGroupSvc.stationGroupIdValue) {
-      return;
-    }
-
-    if (this.currentState === 'SET_STATION') {
-      return;
-    }
-
-    this.saveSvc.save(this.formGroupSvc.stationGroupIdValue, this.formGroupSvc.formGroup.getRawValue());
   }
 
   // Just for debugging

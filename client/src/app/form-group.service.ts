@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SessionTypeService } from './session/session-type.service';
 import { SessionType } from './session/session-type.model';
+import { Station } from './station/station.model';
+import { SaveService } from './save.service';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormGroupService {
   public _formGroup!: FormGroup;
+  protected currentState!: string;
+  
   public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns }
   public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns }
 
@@ -39,8 +44,13 @@ export class FormGroupService {
   public getSpeciesGroup(sIdx: number): FormGroup { return this.getPopulationGroup(sIdx).get('species') as FormGroup; }
 
   constructor(private formBuilder: FormBuilder,
+    private state: StateService,
+    private saveSvc: SaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();
+    this.stationGroup.valueChanges.subscribe(() => this.load());
+    this.formGroup.valueChanges.subscribe(() => this.save());
+    this.state.state.subscribe(nextState => this.currentState = nextState);
   }
   
   private newFormGroup(): FormGroup {
@@ -76,5 +86,28 @@ export class FormGroupService {
         }),
       })
     });
+  }
+
+  private load(): void {
+    const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
+    if (lastSession) {
+      this.formGroup.setValue(lastSession, { emitEvent: false });
+    } else {
+      const retainStation: Station = this.stationGroup.getRawValue();
+      this.formGroup.reset(undefined, { emitEvent: false });
+      this.stationGroup.setValue(retainStation, { emitEvent: false });
+    }
+  }
+
+  private save(): void {
+    if (!this.stationGroupIdValue) {
+      return;
+    }
+
+    if (this.currentState === 'SET_STATION') {
+      return;
+    }
+
+    this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
   }
 }
