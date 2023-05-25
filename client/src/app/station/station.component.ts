@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Station } from './station.model';
-import { StationService } from './station.service';
 import { StatesService } from '../states.service';
 
 @Component({
@@ -14,11 +13,14 @@ import { StatesService } from '../states.service';
       <mat-card-subtitle>Station details</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-selection-list [multiple]="false">
+      <mat-selection-list 
+        [multiple]="false"
+        data-testid="station-list">
         <mat-list-option 
           *ngFor="let station of stations" 
           [value]="station.id"
           (click)="stationGroup.setValue(station)"
+          data-testid="station-list-item"
         >{{ station.name }}</mat-list-option>
       </mat-selection-list>
       <p *ngIf="!stations.length">please wait...</p>
@@ -36,10 +38,8 @@ import { StatesService } from '../states.service';
 })
 export class StationComponent {
   protected displayedColumns: string[] = ['id', 'name'];
-  protected stations: Station[] = [];
+  @Input() stations!: Station[];
   @Input() stationGroup!: FormGroup;
 
-  constructor(stationSvc: StationService, protected states: StatesService) {
-    stationSvc.getStations().subscribe(stations => this.stations = stations);
-  }
+  constructor(protected states: StatesService) { }
 }

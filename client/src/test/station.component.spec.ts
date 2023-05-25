@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -9,6 +9,8 @@ import { SaveService } from 'src/app/save.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
+
+import { Station } from '../app/station/station.model';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,16 +25,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
 
-const saveStubPartial: Partial<SaveService> = {
-  load(key: string): any { },
-  save(key: string, content: any): void { }
-}
-
-describe('App', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
-  let saveStub: Partial<SaveService>;
-  let stateService: StatesService;
+describe('Station', () => {
+  let component: StationComponent;
+  let fixture: ComponentFixture<StationComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -59,7 +54,6 @@ describe('App', () => {
         StationComponent,
       ],
       providers: [ 
-        { provide: SaveService, useValue: saveStubPartial },
         FormBuilder,
         SessionTypeService,
         StationService,
@@ -67,35 +61,40 @@ describe('App', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(StationComponent);
     component = fixture.componentInstance;
-    saveStub = TestBed.inject(SaveService);
-    stateService = TestBed.inject(StatesService);
+
+    component.stations = [
+      new Station({ id: 'ab123', name: 'Alpha Bravo 123' }),
+      new Station({ id: 'cd456', name: 'Charlie Delta 456' }),
+      new Station({ id: 'ef789', name: 'Echo Foxtrot 789' }),
+    ];
+
+    component.stationGroup = new FormGroup({
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+    });
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render app-station when the state is "SET_STATION"', () => {
-    stateService.toSetStation();
-    fixture.detectChanges();
+  it('should render the stations from input', () => {
+    const stationList = fixture.debugElement.query(By.css('[data-testid="station-list"]'));
+    expect(stationList).toBeTruthy();
 
-    const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));
-    expect(appStation).toBeTruthy();
-    
-    const appSession = fixture.debugElement.query(By.css('[data-testid="app-session"]'));
-    expect(appSession).toBeFalsy();
+    const stationListItems = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'));
+    expect(stationListItems.length).toBe(3);
   });
-  
-  it('should render app-session when the state is "SET_SESSION"', () => {
-    stateService.toSetSession();
-    fixture.detectChanges();
 
-    const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));
-    expect(appStation).toBeFalsy();
-    
-    const appSession = fixture.debugElement.query(By.css('[data-testid="app-session"]'));
-    expect(appSession).toBeTruthy();
+  it('should render the stations from input', () => {
+    const stationList = fixture.debugElement.query(By.css('[data-testid="station-list"]'));
+    expect(stationList).toBeTruthy();
+
+    const stationListItem = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'));
+    expect(stationListItem.length).toBe(3);
   });
 });

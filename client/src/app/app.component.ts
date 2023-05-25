@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
 import { Station } from './station/station.model';
+import { StationService } from './station/station.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { Station } from './station/station.model';
       <app-station
         *ngSwitchCase="'SET_STATION'"
         [stationGroup]="stationGroup"
+        [stations]="stations"
         data-testid="app-station"
       ></app-station>
       <app-session
@@ -52,10 +54,13 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
+  protected stations: Station[] = [];
+
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
     private sessionTypeSvc: SessionTypeService,
-    private saveSvc: SaveService) { }
+    private saveSvc: SaveService,
+    private stationSvc: StationService) { }
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
@@ -72,7 +77,6 @@ export class AppComponent implements OnInit {
       gillingRuns: this.formBuilder.array(this.sessionTypeSvc.GILLING_RUNS.map(_ => this.newRunGroup())),
       electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
     });
-
 
     this.stationGroup.valueChanges.subscribe(_ => {
       const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
@@ -95,6 +99,10 @@ export class AppComponent implements OnInit {
       }
 
       this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
+    });
+
+    this.stationSvc.getStations().subscribe(stations => {
+      this.stations = stations;
     });
   }
 
