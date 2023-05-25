@@ -14,16 +14,22 @@ import { FormGroupService } from '../form-group.service';
     </mat-card-header>
     <mat-card-content>
         <mat-label>Session Type</mat-label>
-        <mat-radio-group [formControl]="fgSvc.sessionTypeControl">
-          <mat-radio-button *ngFor="let sessionType of fgSvc.sessionTypes" [value]="sessionType.id">
-            {{ sessionType.name }}
-          </mat-radio-button>
+        <mat-radio-group 
+          [formControl]="fgSvc.sessionTypeControl"
+          data-testid="session-type-group">
+          <mat-radio-button 
+            *ngFor="let sessionType of fgSvc.sessionTypes" 
+            [value]="sessionType.id"
+            data-testid="session-type-group-item"
+          >{{ sessionType.name }}</mat-radio-button>
         </mat-radio-group>
     </mat-card-content>
     <mat-card-actions *ngIf="fgSvc.sessionType">
       <mat-button-toggle-group [(ngModel)]="sIdx">
-        <!-- TODO : Make sure these don't go flying off the page -->
-        <mat-button-toggle *ngFor="let idx of idxs" [value]="idx">{{ idx + 1 }}</mat-button-toggle>
+        <mat-button-toggle 
+          *ngFor="let idx of idxs" 
+          [value]="idx"
+        >{{ idx + 1 }}</mat-button-toggle>
       </mat-button-toggle-group>
     </mat-card-actions>
   </mat-card>
@@ -33,12 +39,14 @@ import { FormGroupService } from '../form-group.service';
     [sIdx]="sIdx"
     [habitats]="habitats"
     (go)="state = 'POPULATION'"
+    data-testid="app-environment"
   ></app-environment>
-  <app-population
+    <app-population
     *ngIf="fgSvc.sessionType && state === 'POPULATION'"
     [sIdx]="sIdx"
     [species]="species"
     (done)="state = 'ENVIRONMENT'"
+    data-testid="app-population"
   ></app-population>
   `,
 })
