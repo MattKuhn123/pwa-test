@@ -1,28 +1,65 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from 'src/app/app.component';
 import { StatesService } from 'src/app/states.service';
 import { SaveService } from 'src/app/save.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
+import { SessionComponent } from '../app/session/session.component';
+import { StationComponent } from '../app/station/station.component';
 
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { StationService } from 'src/app/station/station.service';
 
-describe('PreviousSessionComponent', () => {
+
+describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let saveStub: Partial<SaveService>;
+  let stateService: StatesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatToolbarModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+
+        MatNativeDateModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatListModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatToolbarModule
       ],
-      declarations: [ AppComponent ],
+      declarations: [ 
+        AppComponent,
+        SessionComponent,
+        StationComponent,
+      ],
       providers: [ 
         { provide: SaveService, useValue: saveStub },
-        StatesService,
         FormBuilder,
         SessionTypeService,
+        StationService,
+        StatesService,
       ]
     })
     .compileComponents();
@@ -30,9 +67,33 @@ describe('PreviousSessionComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     saveStub = TestBed.inject(SaveService);
+    stateService = TestBed.inject(StatesService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render app-station when the state is "SET_STATION"', () => {
+    stateService.toSetStation();
+    fixture.detectChanges();
+
+    const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));
+    expect(appStation).toBeTruthy();
+    
+    const appSession = fixture.debugElement.query(By.css('[data-testid="app-session"]'));
+    expect(appSession).toBeFalsy();
+    
+  });
+  
+  it('should render app-session when the state is "SET_SESSION"', () => {
+    stateService.toSetSession();
+    fixture.detectChanges();
+
+    const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));
+    expect(appStation).toBeFalsy();
+    
+    const appSession = fixture.debugElement.query(By.css('[data-testid="app-session"]'));
+    expect(appSession).toBeTruthy();
   });
 });

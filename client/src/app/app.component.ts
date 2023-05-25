@@ -23,12 +23,14 @@ import { Station } from './station/station.model';
       <app-station
         *ngSwitchCase="'SET_STATION'"
         [stationGroup]="stationGroup"
+        data-testid="app-station"
       ></app-station>
       <app-session
         *ngSwitchCase="'SET_SESSION'"
         [sessionTypeGroup]="sessionTypeGroup"
         [gillingRunsArray]="gillingRunsArray"
         [electrocutingRunsArray]="electrocutingRunsArray"
+        data-testid="app-session"
       ></app-session>
       <p *ngSwitchDefault>
         Invalid state, please go back

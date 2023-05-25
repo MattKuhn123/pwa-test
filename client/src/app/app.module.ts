@@ -4,14 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { StationComponent } from './station/station.component';
 import { EnvironmentComponent } from './environment/environment.component';
-import { SessionComponent } from './session/session.component';
-import { PopulationComponent } from './population/population.component';
-import { StationService } from './station/station.service';
 import { HabitatService } from './environment/habitat.service';
-import { SpeciesService } from './population/species.service';
+import { PopulationComponent } from './population/population.component';
+import { SaveService } from './save.service';
+import { SessionComponent } from './session/session.component';
 import { SessionTypeService } from './session/session-type.service';
+import { SpeciesService } from './population/species.service';
+import { StationComponent } from './station/station.component';
+import { StationService } from './station/station.service';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +28,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SaveService } from './save.service';
 
 @NgModule({
   declarations: [
