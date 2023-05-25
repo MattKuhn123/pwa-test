@@ -29,9 +29,8 @@ import { FormGroupService } from '../form-group.service';
       <button 
         mat-button 
         (click)="states.toSetSession()"
-        [disabled]="!formGroupService.stationControl.valid">
-        Next
-      </button>
+        [disabled]="!formGroupService.stationControl.valid"
+      >Next</button>
     </mat-card-actions>
   </mat-card>
   `,
