@@ -107,7 +107,7 @@ describe('Station', () => {
   it('should render the session types', () => {
     fgSvc.sessionTypeControl.setValue("");
     fixture.detectChanges();
-    
+
     const stationList = fixture.debugElement.query(By.css('[data-testid="session-type-group"]'));
     expect(stationList).toBeTruthy();
 
@@ -147,5 +147,21 @@ describe('Station', () => {
 
     const appPopulation = fixture.debugElement.query(By.css('[data-testid="app-population"]'));
     expect(appPopulation).toBeTruthy();
+  });
+
+  it('should render 15 buttons if selected gilling', () => {
+    fgSvc.sessionTypeControl.setValue(fgSvc.gilling.id);
+    fixture.detectChanges();
+
+    const idxButtons = fixture.debugElement.queryAll(By.css('[data-testid="idx-buttons"]'));
+    expect(idxButtons.length).toBe(15);
+  });
+
+  it('should render 12 buttons if selected electrocuting', () => {
+    fgSvc.sessionTypeControl.setValue(fgSvc.electrocuting.id);
+    fixture.detectChanges();
+
+    const idxButtons = fixture.debugElement.queryAll(By.css('[data-testid="idx-buttons"]'));
+    expect(idxButtons.length).toBe(12);
   });
 });

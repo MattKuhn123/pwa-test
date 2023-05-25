@@ -13,8 +13,10 @@ export class FormGroupService {
   public _formGroup!: FormGroup;
   protected currentState!: string;
   
+  public get gilling(): SessionType { return this.sessionTypeSvc.gilling; }
   public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns; }
   public get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
+  public get electrocuting(): SessionType { return this.sessionTypeSvc.electrocuting; }
   public get electrocutingRuns(): number[] { return this.sessionTypeSvc.electrocutingRuns; }
   public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
 

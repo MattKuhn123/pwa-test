@@ -29,6 +29,7 @@ import { FormGroupService } from '../form-group.service';
         <mat-button-toggle 
           *ngFor="let idx of idxs" 
           [value]="idx"
+          data-testid="idx-buttons"
         >{{ idx + 1 }}</mat-button-toggle>
       </mat-button-toggle-group>
     </mat-card-actions>
