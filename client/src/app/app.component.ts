@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { StatesService } from './states.service';
@@ -14,18 +14,12 @@ import { Station } from './station/station.model';
     'mat-toolbar { margin-bottom: 10px; }',
   ],
   template: `
-  <mat-toolbar>
-    <button
-      mat-button
-      (click)="state.toSetStation()"
-    >PWA Test</button>
-  </mat-toolbar>
   <form [formGroup]="formGroup">
     <div [ngSwitch]="currentState">
       <app-station
         *ngSwitchCase="'SET_STATION'"
         [stationGroup]="stationGroup"
-        [stations]="(stations | async)!"
+        [stations]="stations"
         data-testid="app-station"
       ></app-station>
       <app-session
@@ -44,6 +38,8 @@ import { Station } from './station/station.model';
   `,
 })
 export class AppComponent implements OnInit {
+  @Input() stations!: Station[];
+
   protected currentState!: string;
   protected formGroup!: FormGroup;
 
@@ -55,7 +51,6 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
-  protected stations!: Observable<Station[]>;
 
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
@@ -68,7 +63,6 @@ export class AppComponent implements OnInit {
     this.formGroup = this.newFormGroup();
     this.stationGroup.valueChanges.subscribe(this.load);
     this.formGroup.valueChanges.subscribe(this.save);
-    this.stations = this.stationSvc.getStations();
   }
 
   private newFormGroup(): FormGroup {
