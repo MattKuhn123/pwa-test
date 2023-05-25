@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { StatesService } from 'src/app/states.service';
-import { SaveService } from 'src/app/save.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
@@ -94,7 +93,25 @@ describe('Station', () => {
     const stationList = fixture.debugElement.query(By.css('[data-testid="station-list"]'));
     expect(stationList).toBeTruthy();
 
-    const stationListItem = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'));
-    expect(stationListItem.length).toBe(3);
+    const stationListItems = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'));
+    expect(stationListItems.length).toBe(3);
+  });
+
+  it('should set the form fields when a list item is clicked', () => {
+    [0, 1, 2].forEach(idx => {
+      const stationListItem = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'))[idx];
+      stationListItem.nativeElement.click();
+  
+      fixture.detectChanges();
+  
+      const expectedId = component.stations[idx].id;
+      const expectedName = component.stations[idx].name;
+  
+      const id = component.stationGroup.get("id")?.getRawValue();
+      const name = component.stationGroup.get("name")?.getRawValue();
+
+      expect(id).toEqual(expectedId);
+      expect(name).toEqual(expectedName);
+    })
   });
 });
