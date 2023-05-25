@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Species } from './species.model';
+import { FormGroupService } from '../form-group.service';
 
 @Component({
   selector: 'app-population',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="populationGroup">
+  <mat-card [formGroup]="formGroupService.getPopulationGroup(sIdx)">
     <mat-card-content>
       <mat-form-field formGroupName="species" *ngIf="species">
         <mat-label>Species</mat-label>
@@ -34,14 +34,14 @@ import { Species } from './species.model';
 })
 export class PopulationComponent implements OnInit {
   @Output() done: EventEmitter<void> = new EventEmitter<void>();
-  @Input() populationGroup!: FormGroup;
+  @Input() sIdx!: number;
   @Input() species!: Species[];
 
-  protected get speciesGroup(): FormGroup { return this.populationGroup.get('species') as FormGroup; }
+  constructor(protected formGroupService: FormGroupService) { }
 
   ngOnInit(): void {
-    this.speciesGroup.get("id")?.valueChanges.subscribe(id => {
-      this.speciesGroup.get("name")?.setValue(this.species.find(b => b.id === id)?.name);
+    this.formGroupService.getSpeciesGroup(this.sIdx).get("id")?.valueChanges.subscribe(id => {
+      this.formGroupService.getSpeciesGroup(this.sIdx).get("name")?.setValue(this.species.find(b => b.id === id)?.name);
     });
   }
 }

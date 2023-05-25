@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { SessionType } from './session-type.model';
-import { SessionTypeService } from './session-type.service';
 import { Habitat } from '../environment/habitat.model';
 import { Species } from '../population/species.model';
+import { FormGroupService } from '../form-group.service';
 
 @Component({
   selector: 'app-session',
@@ -14,16 +12,16 @@ import { Species } from '../population/species.model';
       <mat-card-title>Session</mat-card-title>
       <mat-card-subtitle>Enter session details</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content [formGroup]="sessionTypeGroup">
+    <mat-card-content [formGroup]="formGroupService.sessionTypeGroup">
         <mat-label>Session Type</mat-label>
         <mat-radio-group formControlName="id">
-          <mat-radio-button *ngFor="let sessionType of sessionTypes" [value]="sessionType.id">
+          <mat-radio-button *ngFor="let sessionType of formGroupService.sessionTypes" [value]="sessionType.id">
             {{ sessionType.name }}
           </mat-radio-button>
         </mat-radio-group>
     </mat-card-content>
-    <mat-card-actions *ngIf="sessionType.id">
-      <mat-button-toggle-group [(ngModel)]="selectedIdx">
+    <mat-card-actions *ngIf="formGroupService.sessionType.id">
+      <mat-button-toggle-group [(ngModel)]="sIdx">
         <!-- TODO : Make sure these don't go flying off the page -->
         <mat-button-toggle *ngFor="let idx of idxs" [value]="idx">{{ idx + 1 }}</mat-button-toggle>
       </mat-button-toggle-group>
@@ -31,53 +29,37 @@ import { Species } from '../population/species.model';
   </mat-card>
 
   <app-environment
-    *ngIf="sessionType.id && state === 'ENVIRONMENT'"
-    [environmentGroup]="environmentGroup"
+    *ngIf="formGroupService.sessionType.id && state === 'ENVIRONMENT'"
+    [sIdx]="sIdx"
     [habitats]="habitats"
     (go)="state = 'POPULATION'"
   ></app-environment>
   <app-population
-    *ngIf="sessionType.id && state === 'POPULATION'"
-    [populationGroup]="populationGroup"
+    *ngIf="formGroupService.sessionType.id && state === 'POPULATION'"
+    [sIdx]="sIdx"
     [species]="species"
     (done)="state = 'ENVIRONMENT'"
   ></app-population>
   `,
 })
 export class SessionComponent implements OnInit {
-  @Input() sessionTypeGroup!: FormGroup;
-  @Input() gillingRunsArray!: FormArray;
-  @Input() electrocutingRunsArray!: FormArray;
   @Input() habitats!: Habitat[];
   @Input() species!: Species[];
-
-  protected state: 'ENVIRONMENT' | 'POPULATION' = 'ENVIRONMENT';
-  protected selectedIdx: number = 0;
   
-  protected get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes }
-  protected get sessionType(): SessionType { return this.sessionTypeGroup.getRawValue() as SessionType; }
-  protected get isGilling(): boolean { return this.sessionType.id === this.sessionTypeSvc.GILLING.id; }
-  protected get isElectrocuting(): boolean {  return this.sessionType.id === this.sessionTypeSvc.ELETROCUTING.id; }
-  protected get runGroup(): FormGroup {
-    return this.isGilling
-      ? this.gillingRunsArray.at(this.selectedIdx) as FormGroup
-      : this.electrocutingRunsArray.at(this.selectedIdx) as FormGroup;
-  }
-
-  protected get environmentGroup(): FormGroup { return this.runGroup.get("environment") as FormGroup; }
-  protected get populationGroup(): FormGroup { return this.runGroup.get("population") as FormGroup; }
+  protected state: 'ENVIRONMENT' | 'POPULATION' = 'ENVIRONMENT';
+  protected sIdx: number = 0;
 
   protected get idxs(): number[] {
-    return this.isGilling
-      ? this.sessionTypeSvc.GILLING_RUNS
-      : this.sessionTypeSvc.ELECTROCUTING_RUNS;
+    return this.formGroupService.isGilling
+      ? this.formGroupService.GILLING_RUNS
+      : this.formGroupService.ELECTROCUTING_RUNS;
   }
 
-  constructor(protected sessionTypeSvc: SessionTypeService) { }
+  constructor(protected formGroupService: FormGroupService) { }
 
   ngOnInit(): void {
-    this.sessionTypeGroup.get("id")?.valueChanges.subscribe(id => {
-      this.sessionTypeGroup.get("name")?.setValue(this.sessionTypes.find(st => st.id === id)?.name);
+    this.formGroupService.sessionTypeGroup.get("id")?.valueChanges.subscribe(id => {
+      this.formGroupService.sessionTypeGroup.get("name")?.setValue(this.formGroupService.sessionTypes.find(st => st.id === id)?.name);
     });
   }
 }

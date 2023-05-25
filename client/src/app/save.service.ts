@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const appkey: string = "dc609b30-bd47-415a-a1f9-91481b07c439";
+
 @Injectable()
 export class SaveService {
   public save(key: string, value: any): void {

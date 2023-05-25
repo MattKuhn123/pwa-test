@@ -4,11 +4,10 @@ import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StateService } from 'src/app/states.service';
+import { StateService } from 'src/app/state.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
-
 import { Station } from '../app/station/station.model';
 
 import { MatNativeDateModule } from '@angular/material/core';
@@ -23,10 +22,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
+import { FormGroupService } from 'src/app/form-group.service';
 
 describe('Station', () => {
   let component: StationComponent;
   let fixture: ComponentFixture<StationComponent>;
+  let formGroupService: FormGroupService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -63,16 +64,13 @@ describe('Station', () => {
     fixture = TestBed.createComponent(StationComponent);
     component = fixture.componentInstance;
 
+    formGroupService = TestBed.inject(FormGroupService);
+
     component.stations = [
       new Station({ id: 'ab123', name: 'Alpha Bravo 123' }),
       new Station({ id: 'cd456', name: 'Charlie Delta 456' }),
       new Station({ id: 'ef789', name: 'Echo Foxtrot 789' }),
     ];
-
-    component.stationGroup = new FormGroup({
-      id: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-    });
 
     fixture.detectChanges();
   });
@@ -107,8 +105,8 @@ describe('Station', () => {
       const expectedId = component.stations[idx].id;
       const expectedName = component.stations[idx].name;
   
-      const id = component.stationGroup.get("id")?.getRawValue();
-      const name = component.stationGroup.get("name")?.getRawValue();
+      const id = formGroupService.stationGroup.get("id")?.getRawValue();
+      const name = formGroupService.stationGroup.get("name")?.getRawValue();
 
       expect(id).toEqual(expectedId);
       expect(name).toEqual(expectedName);

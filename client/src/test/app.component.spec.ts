@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StateService } from 'src/app/states.service';
+import { StateService } from 'src/app/state.service';
 import { SaveService } from 'src/app/save.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';

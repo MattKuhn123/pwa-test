@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { HabitatService } from './habitat.service';
 import { Habitat } from './habitat.model';
+import { FormGroupService } from '../form-group.service';
 
 @Component({
   selector: 'app-environment',
@@ -9,7 +8,7 @@ import { Habitat } from './habitat.model';
     'mat-card-content { display: flex; flex-direction: column  }'
   ],
   template: `
-  <mat-card [formGroup]="environmentGroup">
+  <mat-card [formGroup]="formGroupService.getEnvironmentGroup(sIdx)">
     <mat-card-content>
       <mat-form-field formGroupName="habitat" *ngIf="habitats">
         <mat-label>Habitat</mat-label>
@@ -44,14 +43,14 @@ import { Habitat } from './habitat.model';
 })
 export class EnvironmentComponent implements OnInit {
   @Output() go: EventEmitter<void> = new EventEmitter<void>();
-  @Input() environmentGroup!: FormGroup;
+  @Input() sIdx!: number;
   @Input() habitats!: Habitat[];
 
-  protected get habitatGroup(): FormGroup { return this.environmentGroup.get('habitat') as FormGroup; }
+  constructor(protected formGroupService: FormGroupService) { }
 
   ngOnInit(): void {
-    this.habitatGroup.get("id")?.valueChanges.subscribe(id => {
-      this.habitatGroup.get("name")?.setValue(this.habitats.find(b => b.id === id)?.name);
+    this.formGroupService.getHabitatGroup(this.sIdx).get("id")?.valueChanges.subscribe(id => {
+      this.formGroupService.getHabitatGroup(this.sIdx).get("name")?.setValue(this.habitats.find(b => b.id === id)?.name);
     });
   }
 }
