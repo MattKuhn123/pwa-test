@@ -5,6 +5,7 @@ import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
 import { Station } from './station/station.model';
 import { StationService } from './station/station.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ import { StationService } from './station/station.service';
       <app-station
         *ngSwitchCase="'SET_STATION'"
         [stationGroup]="stationGroup"
-        [stations]="stations"
+        [stations]="(stations | async)!"
         data-testid="app-station"
       ></app-station>
       <app-session
@@ -54,7 +55,7 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
-  protected stations: Station[] = [];
+  protected stations!: Observable<Station[]>;
 
   constructor(protected state: StatesService,
     private formBuilder: FormBuilder,
@@ -64,8 +65,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);
+    this.formGroup = this.newFormGroup();
+    this.stationGroup.valueChanges.subscribe(this.load);
+    this.formGroup.valueChanges.subscribe(this.save);
+    this.stations = this.stationSvc.getStations();
+  }
 
-    this.formGroup = this.formBuilder.group({
+  private newFormGroup(): FormGroup {
+    return this.formBuilder.group({
       station: this.formBuilder.group({
         id: this.formBuilder.control('', Validators.required),
         name: this.formBuilder.control('', Validators.required),
@@ -76,34 +83,7 @@ export class AppComponent implements OnInit {
       }),
       gillingRuns: this.formBuilder.array(this.sessionTypeSvc.GILLING_RUNS.map(_ => this.newRunGroup())),
       electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.ELECTROCUTING_RUNS.map(_ => this.newRunGroup()))
-    });
-
-    this.stationGroup.valueChanges.subscribe(_ => {
-      const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
-      if (lastSession) {
-        this.formGroup.setValue(lastSession, { emitEvent: false });
-      } else {
-        const retainStation: Station = this.stationGroup.getRawValue();
-        this.formGroup.reset(undefined, { emitEvent: false });
-        this.stationGroup.setValue(retainStation, { emitEvent: false });
-      }
     })
-
-    this.formGroup.valueChanges.subscribe(_ => {
-      if (!this.stationGroupIdValue) {
-        return;
-      }
-  
-      if (this.currentState === 'SET_STATION') {
-        return;
-      }
-
-      this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
-    });
-
-    this.stationSvc.getStations().subscribe(stations => {
-      this.stations = stations;
-    });
   }
 
   private newRunGroup(): FormGroup {
@@ -124,6 +104,29 @@ export class AppComponent implements OnInit {
         }),
       })
     })
+  }
+
+  private load(): void {
+    const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
+    if (lastSession) {
+      this.formGroup.setValue(lastSession, { emitEvent: false });
+    } else {
+      const retainStation: Station = this.stationGroup.getRawValue();
+      this.formGroup.reset(undefined, { emitEvent: false });
+      this.stationGroup.setValue(retainStation, { emitEvent: false });
+    }
+  }
+
+  private save(): void {
+    if (!this.stationGroupIdValue) {
+      return;
+    }
+
+    if (this.currentState === 'SET_STATION') {
+      return;
+    }
+
+    this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
   }
 
   // Just for debugging

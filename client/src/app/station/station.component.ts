@@ -23,7 +23,7 @@ import { StatesService } from '../states.service';
           data-testid="station-list-item"
         >{{ station.name }}</mat-list-option>
       </mat-selection-list>
-      <p *ngIf="!stations.length">please wait...</p>
+      <p *ngIf="!stations">please wait...</p>
     </mat-card-content>
     <mat-card-actions>
       <button 
