@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StatesService } from 'src/app/states.service';
+import { StateService } from 'src/app/states.service';
 import { SaveService } from 'src/app/save.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
@@ -32,7 +32,7 @@ describe('App', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let saveStub: Partial<SaveService>;
-  let stateService: StatesService;
+  let stateService: StateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -63,14 +63,14 @@ describe('App', () => {
         FormBuilder,
         SessionTypeService,
         StationService,
-        StatesService,
+        StateService,
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     saveStub = TestBed.inject(SaveService);
-    stateService = TestBed.inject(StatesService);
+    stateService = TestBed.inject(StateService);
   });
 
   it('should create', () => {

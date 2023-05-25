@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StatesService } from 'src/app/states.service';
+import { StateService } from 'src/app/states.service';
 import { SessionTypeService } from 'src/app/session/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
@@ -56,7 +56,7 @@ describe('Station', () => {
         FormBuilder,
         SessionTypeService,
         StationService,
-        StatesService,
+        StateService,
       ]
     }).compileComponents();
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { StatesService } from './states.service';
+import { StateService } from './state.service';
 import { SessionTypeService } from './session/session-type.service';
 import { SaveService } from './save.service';
 import { Station } from './station/station.model';
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   private get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
   private get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
 
-  constructor(protected state: StatesService,
+  constructor(protected state: StateService,
     private formBuilder: FormBuilder,
     private sessionTypeSvc: SessionTypeService,
     private saveSvc: SaveService) { }

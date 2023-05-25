@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StatesService } from './states.service';
-import { SessionTypeService } from './session/session-type.service';
+import { StateService } from './state.service';
 import { StationService } from './station/station.service';
 import { Station } from './station/station.model';
 import { Habitat } from './environment/habitat.model';
@@ -33,8 +32,7 @@ export class InitComponent implements OnInit {
 
   constructor(private habitatSvc: HabitatService,
     private speciesSvc: SpeciesService,
-    protected state: StatesService,
-    private sessionTypeSvc: SessionTypeService,
+    protected state: StateService,
     private stationSvc: StationService) { }
 
   ngOnInit(): void {
