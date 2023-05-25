@@ -23,7 +23,7 @@ import { Station } from './station/station.model';
       <app-station
         *ngSwitchCase="'SET_STATION'"
         [stationGroup]="stationGroup"
-        ></app-station>
+      ></app-station>
       <app-session
         *ngSwitchCase="'SET_SESSION'"
         [sessionTypeGroup]="sessionTypeGroup"
