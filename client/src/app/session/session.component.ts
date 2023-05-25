@@ -10,7 +10,7 @@ import { FormGroupService } from '../form-group.service';
   <mat-card>
     <mat-card-header>
       <mat-card-title>Session</mat-card-title>
-      <mat-card-subtitle>Enter session details</mat-card-subtitle>
+      <mat-card-subtitle>{{ fgSvc.stationControlValue }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <mat-label>Session Type</mat-label>
