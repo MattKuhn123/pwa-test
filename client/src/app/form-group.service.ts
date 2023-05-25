@@ -18,18 +18,17 @@ export class FormGroupService {
 
   public get formGroup(): FormGroup { return this._formGroup }
 
-  public get stationGroup(): FormGroup { return this.formGroup.get('station') as FormGroup; }
-  public get sessionTypeGroup(): FormGroup { return this.formGroup.get('sessionType') as FormGroup; }
+  public get stationControl(): FormControl { return this.formGroup.get('station') as FormControl; }
+  public get stationControlValue(): string { return this.stationControl?.getRawValue(); }
+  
   public get gillingRunsArray(): FormArray { return this.formGroup.get('gillingRuns') as FormArray; }
   public get electrocutingRunsArray(): FormArray { return this.formGroup.get('electrocutingRuns') as FormArray; }
-
-  public get stationGroupId(): FormControl { return this.stationGroup.get("id") as FormControl; }
-  public get stationGroupIdValue(): string { return this.stationGroupId?.getRawValue(); }
-
+  
+  public get sessionTypeControl(): FormControl { return this.formGroup.get('sessionType') as FormControl; }
   public get sessionTypes(): SessionType[] { return this.sessionTypeSvc.sessionTypes }
-  public get sessionType(): SessionType { return this.sessionTypeGroup.getRawValue() as SessionType; }
-  public get isGilling(): boolean { return this.sessionType.id === this.sessionTypeSvc.gilling.id; }
-  public get isElectrocuting(): boolean {  return this.sessionType.id === this.sessionTypeSvc.electrocuting.id; }
+  public get sessionType(): string { return this.sessionTypeControl.getRawValue() as string; }
+  public get isGilling(): boolean { return this.sessionType === this.sessionTypeSvc.gilling.id; }
+  public get isElectrocuting(): boolean {  return this.sessionType === this.sessionTypeSvc.electrocuting.id; }
 
   public getRunGroup(sIdx: number): FormGroup {
     return this.isGilling
@@ -48,21 +47,15 @@ export class FormGroupService {
     private saveSvc: SaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();
-    this.stationGroup.valueChanges.subscribe(() => this.load());
+    this.stationControl.valueChanges.subscribe(() => this.load());
     this.formGroup.valueChanges.subscribe(() => this.save());
     this.state.state.subscribe(nextState => this.currentState = nextState);
   }
   
   private newFormGroup(): FormGroup {
     return this.formBuilder.group({
-      station: this.formBuilder.group({
-        id: this.formBuilder.control('', Validators.required),
-        name: this.formBuilder.control('', Validators.required),
-      }),
-      sessionType: this.formBuilder.group({
-        id: this.formBuilder.control('', Validators.required),
-        name: this.formBuilder.control('', Validators.required),
-      }),
+      station: this.formBuilder.control('', Validators.required),
+      sessionType: this.formBuilder.control('', Validators.required),
       gillingRuns: this.formBuilder.array(this.sessionTypeSvc.gillingRuns.map(() => this.newRunGroup())),
       electrocutingRuns: this.formBuilder.array(this.sessionTypeSvc.electrocutingRuns.map(() => this.newRunGroup()))
     });
@@ -71,36 +64,30 @@ export class FormGroupService {
   private newRunGroup(): FormGroup {
     return this.formBuilder.group({
       population: this.formBuilder.group({
-        species: this.formBuilder.group({
-          id: this.formBuilder.control('', Validators.required),
-          name: this.formBuilder.control('', Validators.required),
-        }),
+        species: this.formBuilder.control('', Validators.required),
         count: this.formBuilder.control('', [Validators.required, Validators.min(0)]),
       }),
       environment: this.formBuilder.group({
         date: this.formBuilder.control('', Validators.required),
         leader: this.formBuilder.control('', Validators.required),
-        habitat: this.formBuilder.group({
-          id: this.formBuilder.control('', Validators.required),
-          name: this.formBuilder.control('', Validators.required),
-        }),
+        habitat: this.formBuilder.control('', Validators.required),
       })
     });
   }
 
   private load(): void {
-    const lastSession: any = this.saveSvc.load(this.stationGroupIdValue);
+    const lastSession: any = this.saveSvc.load(this.stationControlValue);
     if (lastSession) {
       this.formGroup.setValue(lastSession, { emitEvent: false });
     } else {
-      const retainStation: Station = this.stationGroup.getRawValue();
+      const retainStation: Station = this.stationControl.getRawValue();
       this.formGroup.reset(undefined, { emitEvent: false });
-      this.stationGroup.setValue(retainStation, { emitEvent: false });
+      this.stationControl.setValue(retainStation, { emitEvent: false });
     }
   }
 
   private save(): void {
-    if (!this.stationGroupIdValue) {
+    if (!this.stationControlValue) {
       return;
     }
 
@@ -108,6 +95,6 @@ export class FormGroupService {
       return;
     }
 
-    this.saveSvc.save(this.stationGroupIdValue, this.formGroup.getRawValue());
+    this.saveSvc.save(this.stationControlValue, this.formGroup.getRawValue());
   }
 }

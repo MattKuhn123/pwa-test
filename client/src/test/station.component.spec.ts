@@ -114,13 +114,8 @@ describe('Station', () => {
       fixture.detectChanges();
   
       const expectedId = component.stations[idx].id;
-      const expectedName = component.stations[idx].name;
-  
-      const id = formGroupService.stationGroup.get("id")?.getRawValue();
-      const name = formGroupService.stationGroup.get("name")?.getRawValue();
-
+      const id = formGroupService.stationControl.getRawValue();
       expect(id).toEqual(expectedId);
-      expect(name).toEqual(expectedName);
     })
   });
 });
