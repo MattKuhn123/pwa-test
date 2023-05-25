@@ -36,7 +36,6 @@ import { FormGroupService } from '../form-group.service';
   `,
 })
 export class StationComponent {
-  protected displayedColumns: string[] = ['id', 'name'];
   @Input() stations!: Station[];
 
   constructor(protected states: StateService,
