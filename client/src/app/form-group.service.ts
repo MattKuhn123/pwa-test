@@ -47,7 +47,27 @@ export class FormGroupService {
     this.formGroup.valueChanges.subscribe(() => this.save());
     this.stateSvc.state.subscribe(nextState => this.currentState = nextState);
   }
-  
+
+  private load(): void {
+    const previousSession: any = this.saveSvc.load(this.stationControlValue);
+    if (previousSession) {
+      this.formGroup.setValue(previousSession, { emitEvent: false });
+    } else {
+      const retainStation: Station = this.stationControl.getRawValue();
+      this.formGroup.reset(undefined, { emitEvent: false });
+      this.stationControl.setValue(retainStation, { emitEvent: false });
+    }
+  }
+
+  private save(): void {
+    if (!this.stationControlValue || this.currentState === 'SET_STATION') {
+      return;
+    }
+
+    const currentSession = this.formGroup.getRawValue();
+    this.saveSvc.save(this.stationControlValue, currentSession);
+  }
+
   private newFormGroup(): FormGroup {
     return this.formBuilder.group({
       station: this.formBuilder.control('', Validators.required),
@@ -69,28 +89,5 @@ export class FormGroupService {
         habitat: this.formBuilder.control('', Validators.required),
       })
     });
-  }
-
-  private load(): void {
-    const lastSession: any = this.saveSvc.load(this.stationControlValue);
-    if (lastSession) {
-      this.formGroup.setValue(lastSession, { emitEvent: false });
-    } else {
-      const retainStation: Station = this.stationControl.getRawValue();
-      this.formGroup.reset(undefined, { emitEvent: false });
-      this.stationControl.setValue(retainStation, { emitEvent: false });
-    }
-  }
-
-  private save(): void {
-    if (!this.stationControlValue) {
-      return;
-    }
-
-    if (this.currentState === 'SET_STATION') {
-      return;
-    }
-
-    this.saveSvc.save(this.stationControlValue, this.formGroup.getRawValue());
   }
 }
