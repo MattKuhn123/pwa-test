@@ -10,7 +10,7 @@ import { HabitatService } from './environment/habitat.service';
 import { PopulationComponent } from './population/population.component';
 import { SaveService } from './save.service';
 import { SessionComponent } from './session/session.component';
-import { SessionTypeService } from './session/session-type.service';
+import { SessionTypeService } from './session-type/session-type.service';
 import { SpeciesService } from './population/species.service';
 import { StationComponent } from './station/station.component';
 import { StationService } from './station/station.service';

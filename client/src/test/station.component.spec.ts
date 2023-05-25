@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { StateService } from 'src/app/state.service';
-import { SessionTypeService } from 'src/app/session/session-type.service';
+import { SessionTypeService } from 'src/app/session-type/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
 import { Station } from '../app/station/station.model';

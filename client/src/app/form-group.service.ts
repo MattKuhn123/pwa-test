@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SessionTypeService } from './session/session-type.service';
-import { SessionType } from './session/session-type.model';
+import { SessionTypeService } from './session-type/session-type.service';
+import { SessionType } from './session-type/session-type.model';
 import { Station } from './station/station.model';
 import { SaveService } from './save.service';
 import { StateService } from './state.service';
