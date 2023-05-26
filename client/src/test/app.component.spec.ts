@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StateService } from 'src/app/state.service';
+import { AppStateService } from 'src/app/app-state.service';
 import { SessionSaveService } from 'src/app/session/session-save.service';
 import { SessionTypeService } from 'src/app/session-type/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
@@ -35,7 +35,7 @@ const saveStubPartial: Partial<SessionSaveService> = {
 describe('App', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let stateService: StateService;
+  let stateService: AppStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -66,13 +66,13 @@ describe('App', () => {
         FormBuilder,
         SessionTypeService,
         StationService,
-        StateService,
+        AppStateService,
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    stateService = TestBed.inject(StateService);
+    stateService = TestBed.inject(AppStateService);
   });
 
   it('should create', () => {

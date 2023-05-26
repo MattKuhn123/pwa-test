@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Station } from './station.model';
-import { StateService } from '../state.service';
+import { AppStateService } from '../app-state.service';
 import { SessionService } from '../session/session.service';
 
 @Component({
@@ -38,5 +38,5 @@ import { SessionService } from '../session/session.service';
 export class StationComponent {
   @Input() stations!: Station[];
 
-  constructor(protected states: StateService, protected fgSvc: SessionService) { }
+  constructor(protected states: AppStateService, protected fgSvc: SessionService) { }
 }

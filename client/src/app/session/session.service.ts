@@ -4,7 +4,7 @@ import { SessionTypeService } from '../session-type/session-type.service';
 import { SessionType } from '../session-type/session-type.model';
 import { Station } from '../station/station.model';
 import { SessionSaveService } from './session-save.service';
-import { StateService } from '../state.service';
+import { AppStateService } from '../app-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class SessionService {
   public getPopulationGroup(sIdx: number): FormGroup { return this.getRunGroup(sIdx).get("population") as FormGroup; }
 
   constructor(private formBuilder: FormBuilder,
-    private stateSvc: StateService,
+    private stateSvc: AppStateService,
     private saveSvc: SessionSaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StateService } from './state.service';
+import { AppStateService } from './app-state.service';
 import { Station } from './station/station.model';
 import { Habitat } from './environment/habitat.model';
 import { Species } from './population/species.model';
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   protected currentState!: string;
 
-  constructor(protected state: StateService, protected formGroupSvc: SessionService) { }
+  constructor(protected state: AppStateService, protected formGroupSvc: SessionService) { }
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);

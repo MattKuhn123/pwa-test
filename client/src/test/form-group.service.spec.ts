@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { StateService } from 'src/app/state.service';
+import { AppStateService } from 'src/app/app-state.service';
 import { SessionSaveService } from 'src/app/session/session-save.service';
 import { SessionTypeService } from 'src/app/session-type/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
@@ -31,7 +31,7 @@ const saveStubPartial: Partial<SessionSaveService> = {
 }
 
 describe('FormGroup', () => {
-  let stateService: StateService;
+  let stateService: AppStateService;
   let formGroupService: SessionService;
 
   beforeEach(() => {
@@ -55,10 +55,10 @@ describe('FormGroup', () => {
         FormBuilder,
         SessionTypeService,
         StationService,
-        StateService,
+        AppStateService,
       ]
     }).compileComponents();
-    stateService = TestBed.inject(StateService);
+    stateService = TestBed.inject(AppStateService);
     formGroupService = TestBed.inject(SessionService);
   });
 

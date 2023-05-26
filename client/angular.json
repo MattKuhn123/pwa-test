@@ -110,7 +110,7 @@
             "scripts": [],
             "karmaConfig": "karma.conf.js",
             "codeCoverageExclude": [
-              "**/save.service.ts",
+              "**/session-save.service.ts",
               "**/station.service.ts",
               "**/session-type.service.ts",
               "**/species.service.ts",
