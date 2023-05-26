@@ -13,16 +13,16 @@ import { SessionService } from './session.service';
       <mat-card-subtitle>{{ sessSvc.stationControlValue }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-label>Session Type</mat-label>
-        <mat-radio-group 
-          [formControl]="sessSvc.sessionTypeControl"
-          data-testid="session-type-group">
-          <mat-radio-button 
-            *ngFor="let sessionType of sessSvc.sessionTypes" 
-            [value]="sessionType.id"
-            data-testid="session-type-group-item"
-          >{{ sessionType.name }}</mat-radio-button>
-        </mat-radio-group>
+      <mat-label>Session Type</mat-label>
+      <mat-radio-group 
+        [formControl]="sessSvc.sessionTypeControl"
+        data-testid="session-type-group">
+        <mat-radio-button 
+          *ngFor="let sessionType of sessSvc.sessionTypes" 
+          [value]="sessionType.id"
+          data-testid="session-type-group-item"
+        >{{ sessionType.name }}</mat-radio-button>
+      </mat-radio-group>
     </mat-card-content>
     <mat-card-actions *ngIf="sessSvc.sessionType">
       <mat-button-toggle-group [(ngModel)]="sIdx">
