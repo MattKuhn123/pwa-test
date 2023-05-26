@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 const appkey: string = "dc609b30-bd47-415a-a1f9-91481b07c439";
 
 @Injectable()
-export class SaveService {
+export class SessionSaveService {
   public save(key: string, value: any): void {
     const content: any = this.getContent();
     content[key] = JSON.stringify(value);

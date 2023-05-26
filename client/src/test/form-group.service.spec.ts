@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { StateService } from 'src/app/state.service';
-import { SaveService } from 'src/app/save.service';
+import { SessionSaveService } from 'src/app/session/session-save.service';
 import { SessionTypeService } from 'src/app/session-type/session-type.service';
 import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
@@ -19,7 +19,7 @@ let load: any = "";
 let saveAs: string = "";
 let save: string = "";
 
-const saveStubPartial: Partial<SaveService> = {
+const saveStubPartial: Partial<SessionSaveService> = {
   load(key: string): any {
     console.log(key);
     return load;
@@ -51,7 +51,7 @@ describe('FormGroup', () => {
         StationComponent,
       ],
       providers: [ 
-        { provide: SaveService, useValue: saveStubPartial },
+        { provide: SessionSaveService, useValue: saveStubPartial },
         FormBuilder,
         SessionTypeService,
         StationService,

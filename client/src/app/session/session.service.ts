@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { SessionTypeService } from '../session-type/session-type.service';
 import { SessionType } from '../session-type/session-type.model';
 import { Station } from '../station/station.model';
-import { SaveService } from '../save.service';
+import { SessionSaveService } from './session-save.service';
 import { StateService } from '../state.service';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class SessionService {
 
   constructor(private formBuilder: FormBuilder,
     private stateSvc: StateService,
-    private saveSvc: SaveService,
+    private saveSvc: SessionSaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();
     this.stationControl.valueChanges.subscribe(() => this.load());

@@ -23,9 +23,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
 import { SessionService } from 'src/app/session/session.service';
-import { SaveService } from 'src/app/save.service';
+import { SessionSaveService } from 'src/app/session/session-save.service';
 
-const saveStubPartial: Partial<SaveService> = {
+const saveStubPartial: Partial<SessionSaveService> = {
   load(key: string): any {
     console.log(key);
   },
@@ -64,7 +64,7 @@ describe('Station', () => {
         StationComponent,
       ],
       providers: [ 
-        { provide: SaveService, useValue: saveStubPartial },
+        { provide: SessionSaveService, useValue: saveStubPartial },
         FormBuilder,
         SessionTypeService,
         StationService,

@@ -22,14 +22,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
 import { SessionService } from 'src/app/session/session.service';
-import { SaveService } from 'src/app/save.service';
+import { SessionSaveService } from 'src/app/session/session-save.service';
 import { Habitat } from 'src/app/environment/habitat.model';
 import { Species } from 'src/app/population/species.model';
 import { EnvironmentComponent } from 'src/app/environment/environment.component';
 import { PopulationComponent } from 'src/app/population/population.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const saveStubPartial: Partial<SaveService> = {
+const saveStubPartial: Partial<SessionSaveService> = {
   load(key: string): any {
     console.log(key);
   },
@@ -71,7 +71,7 @@ describe('Session', () => {
         StationComponent,
       ],
       providers: [ 
-        { provide: SaveService, useValue: saveStubPartial },
+        { provide: SessionSaveService, useValue: saveStubPartial },
         FormBuilder,
         SessionTypeService,
         StationService,

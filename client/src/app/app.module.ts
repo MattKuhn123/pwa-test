@@ -8,7 +8,7 @@ import { InitComponent } from './init.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { HabitatService } from './environment/habitat.service';
 import { PopulationComponent } from './population/population.component';
-import { SaveService } from './save.service';
+import { SessionSaveService } from './session/session-save.service';
 import { SessionComponent } from './session/session.component';
 import { SessionTypeService } from './session-type/session-type.service';
 import { SpeciesService } from './population/species.service';
@@ -68,7 +68,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HabitatService,
     SpeciesService,
     StationService,
-    SaveService,
+    SessionSaveService,
     SessionTypeService
   ],
   bootstrap: [ InitComponent ]
