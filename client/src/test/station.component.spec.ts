@@ -98,14 +98,6 @@ describe('Station', () => {
     expect(stationListItems.length).toBe(3);
   });
 
-  it('should render the stations from input', () => {
-    const stationList = fixture.debugElement.query(By.css('[data-testid="station-list"]'));
-    expect(stationList).toBeTruthy();
-
-    const stationListItems = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'));
-    expect(stationListItems.length).toBe(3);
-  });
-
   it('should set the form fields when a list item is clicked', () => {
     [0, 1, 2].forEach(idx => {
       const stationListItem = fixture.debugElement.queryAll(By.css('[data-testid="station-list-item"]'))[idx];
