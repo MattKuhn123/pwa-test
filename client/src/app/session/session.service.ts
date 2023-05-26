@@ -42,17 +42,27 @@ export class SessionService {
     private appStateSvc: AppStateService,
     private saveSvc: SessionSaveService,
     private sessionTypeSvc: SessionTypeService) {
-    this._formGroup = this.newFormGroup();
-    this._formGroup.valueChanges.subscribe(() => this.save());
-    this.stationControl.valueChanges.subscribe(() => this.load());
     this.appStateSvc.state.subscribe(nextState => this.currentState = nextState);
+
+    this._formGroup = this.newFormGroup();
+     
+    // Anytime the form changes, persist the change in localStorage
+    this._formGroup.valueChanges.subscribe(() => this.save());
+
+    // When the user selects a different station, load it's corresponding session from localStorage
+    this.stationControl.valueChanges.subscribe(() => this.load()); 
   }
 
   private load(): void {
+    // Attempt to find the previous session for the station that the user selected
     const previousSession: any = this.saveSvc.load(this.stationControlValue);
     if (previousSession) {
+      // If the attempt to load a previous session found something,
+      // then load it into the form
       this.formGroup.setValue(previousSession, { emitEvent: false });
     } else {
+      // If the attempt to load a previous session found nothing,
+      // then clear out the form, but retain the station that the user selected
       const retainStation: Station = this.stationControl.getRawValue();
       this.formGroup.reset(undefined, { emitEvent: false });
       this.stationControl.setValue(retainStation, { emitEvent: false });
@@ -61,6 +71,7 @@ export class SessionService {
 
   private save(): void {
     if (!this.stationControlValue || this.currentState === 'SET_STATION') {
+      // If the user *(has not set a station)* or *(is on the SET_STATION page)* then do not attempt to save
       return;
     }
 
