@@ -42,7 +42,7 @@ import { SessionService } from './session.service';
     (go)="state = 'POPULATION'"
     data-testid="app-environment"
   ></app-environment>
-    <app-population
+  <app-population
     *ngIf="sessSvc.sessionType && state === 'POPULATION'"
     [sIdx]="sIdx"
     [species]="species"
