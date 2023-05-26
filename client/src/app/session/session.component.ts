@@ -10,21 +10,21 @@ import { SessionService } from './session.service';
   <mat-card>
     <mat-card-header>
       <mat-card-title>Session</mat-card-title>
-      <mat-card-subtitle>{{ fgSvc.stationControlValue }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ sessSvc.stationControlValue }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <mat-label>Session Type</mat-label>
         <mat-radio-group 
-          [formControl]="fgSvc.sessionTypeControl"
+          [formControl]="sessSvc.sessionTypeControl"
           data-testid="session-type-group">
           <mat-radio-button 
-            *ngFor="let sessionType of fgSvc.sessionTypes" 
+            *ngFor="let sessionType of sessSvc.sessionTypes" 
             [value]="sessionType.id"
             data-testid="session-type-group-item"
           >{{ sessionType.name }}</mat-radio-button>
         </mat-radio-group>
     </mat-card-content>
-    <mat-card-actions *ngIf="fgSvc.sessionType">
+    <mat-card-actions *ngIf="sessSvc.sessionType">
       <mat-button-toggle-group [(ngModel)]="sIdx">
         <mat-button-toggle 
           *ngFor="let idx of idxs" 
@@ -36,14 +36,14 @@ import { SessionService } from './session.service';
   </mat-card>
 
   <app-environment
-    *ngIf="fgSvc.sessionType && state === 'ENVIRONMENT'"
+    *ngIf="sessSvc.sessionType && state === 'ENVIRONMENT'"
     [sIdx]="sIdx"
     [habitats]="habitats"
     (go)="state = 'POPULATION'"
     data-testid="app-environment"
   ></app-environment>
     <app-population
-    *ngIf="fgSvc.sessionType && state === 'POPULATION'"
+    *ngIf="sessSvc.sessionType && state === 'POPULATION'"
     [sIdx]="sIdx"
     [species]="species"
     (done)="state = 'ENVIRONMENT'"
@@ -59,10 +59,10 @@ export class SessionComponent {
   protected sIdx: number = 0;
 
   protected get idxs(): number[] {
-    return this.fgSvc.isGilling
-      ? this.fgSvc.gillingRuns
-      : this.fgSvc.electrocutingRuns;
+    return this.sessSvc.isGilling
+      ? this.sessSvc.gillingRuns
+      : this.sessSvc.electrocutingRuns;
   }
 
-  constructor(protected fgSvc: SessionService) { }
+  constructor(protected sessSvc: SessionService) { }
 }

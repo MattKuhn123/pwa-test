@@ -39,13 +39,13 @@ export class SessionService {
   public getPopulationGroup(sIdx: number): FormGroup { return this.getRunGroup(sIdx).get("population") as FormGroup; }
 
   constructor(private formBuilder: FormBuilder,
-    private stateSvc: AppStateService,
+    private appStateSvc: AppStateService,
     private saveSvc: SessionSaveService,
     private sessionTypeSvc: SessionTypeService) {
     this._formGroup = this.newFormGroup();
+    this._formGroup.valueChanges.subscribe(() => this.save());
     this.stationControl.valueChanges.subscribe(() => this.load());
-    this.formGroup.valueChanges.subscribe(() => this.save());
-    this.stateSvc.state.subscribe(nextState => this.currentState = nextState);
+    this.appStateSvc.state.subscribe(nextState => this.currentState = nextState);
   }
 
   private load(): void {

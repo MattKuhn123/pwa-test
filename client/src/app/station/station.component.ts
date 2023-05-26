@@ -19,7 +19,7 @@ import { SessionService } from '../session/session.service';
         <mat-list-option 
           *ngFor="let station of stations" 
           [value]="station.id"
-          (click)="fgSvc.stationControl.setValue(station.id)"
+          (click)="sessSvc.stationControl.setValue(station.id)"
           data-testid="station-list-item"
         >{{ station.name }}</mat-list-option>
       </mat-selection-list>
@@ -28,8 +28,8 @@ import { SessionService } from '../session/session.service';
     <mat-card-actions>
       <button 
         mat-button 
-        (click)="states.toSetSession()"
-        [disabled]="!fgSvc.stationControl.valid"
+        (click)="appStateSvc.toSetSession()"
+        [disabled]="!sessSvc.stationControl.valid"
       >Next</button>
     </mat-card-actions>
   </mat-card>
@@ -38,5 +38,5 @@ import { SessionService } from '../session/session.service';
 export class StationComponent {
   @Input() stations!: Station[];
 
-  constructor(protected states: AppStateService, protected fgSvc: SessionService) { }
+  constructor(protected appStateSvc: AppStateService, protected sessSvc: SessionService) { }
 }

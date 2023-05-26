@@ -37,7 +37,7 @@ const saveStubPartial: Partial<SessionSaveService> = {
 describe('Station', () => {
   let component: StationComponent;
   let fixture: ComponentFixture<StationComponent>;
-  let fgSvc: SessionService;
+  let sessSvc: SessionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -75,7 +75,7 @@ describe('Station', () => {
     fixture = TestBed.createComponent(StationComponent);
     component = fixture.componentInstance;
 
-    fgSvc = TestBed.inject(SessionService);
+    sessSvc = TestBed.inject(SessionService);
 
     component.stations = [
       new Station({ id: 'ab123', name: 'Alpha Bravo 123' }),
@@ -114,7 +114,7 @@ describe('Station', () => {
       fixture.detectChanges();
   
       const expectedId = component.stations[idx].id;
-      const id = fgSvc.stationControl.getRawValue();
+      const id = sessSvc.stationControl.getRawValue();
       expect(id).toEqual(expectedId);
     })
   });

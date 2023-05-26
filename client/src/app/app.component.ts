@@ -9,7 +9,7 @@ import { SessionService } from './session/session.service';
   selector: 'app-root',
   styles: [ 'div { max-width: 75%; min-width: 50%; margin: auto; }' ],
   template: `
-  <form [formGroup]="formGroupSvc.formGroup">
+  <form [formGroup]="sessSvc.formGroup">
     <div [ngSwitch]="currentState">
       <app-station
         *ngSwitchCase="'SET_STATION'"
@@ -27,7 +27,7 @@ import { SessionService } from './session/session.service';
       </p>
     </div>
   </form>
-  <pre *ngIf="formGroupSvc.formGroup">{{ json }}</pre>
+  <pre *ngIf="sessSvc.formGroup">{{ json }}</pre>
   `,
 })
 export class AppComponent implements OnInit {
@@ -37,12 +37,12 @@ export class AppComponent implements OnInit {
 
   protected currentState!: string;
 
-  constructor(protected state: AppStateService, protected formGroupSvc: SessionService) { }
+  constructor(protected appStateService: AppStateService, protected sessSvc: SessionService) { }
 
   ngOnInit(): void {
-    this.state.state.subscribe(nextState => this.currentState = nextState);
+    this.appStateService.state.subscribe(nextState => this.currentState = nextState);
   }
 
   // Just for debugging
-  protected get json(): string { return JSON.stringify(this.formGroupSvc.formGroup.getRawValue(), null, 4); }
+  protected get json(): string { return JSON.stringify(this.sessSvc.formGroup.getRawValue(), null, 4); }
 }

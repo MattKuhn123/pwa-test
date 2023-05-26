@@ -35,7 +35,7 @@ const saveStubPartial: Partial<SessionSaveService> = {
 describe('App', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let stateService: AppStateService;
+  let appStateService: AppStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -72,7 +72,7 @@ describe('App', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    stateService = TestBed.inject(AppStateService);
+    appStateService = TestBed.inject(AppStateService);
   });
 
   it('should create', () => {
@@ -80,7 +80,7 @@ describe('App', () => {
   });
 
   it('should render app-station when the state is "SET_STATION"', () => {
-    stateService.toSetStation();
+    appStateService.toSetStation();
     fixture.detectChanges();
 
     const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));
@@ -91,7 +91,7 @@ describe('App', () => {
   });
   
   it('should render app-session when the state is "SET_SESSION"', () => {
-    stateService.toSetSession();
+    appStateService.toSetSession();
     fixture.detectChanges();
 
     const appStation = fixture.debugElement.query(By.css('[data-testid="app-station"]'));

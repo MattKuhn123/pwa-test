@@ -31,8 +31,8 @@ const saveStubPartial: Partial<SessionSaveService> = {
 }
 
 describe('FormGroup', () => {
-  let stateService: AppStateService;
-  let formGroupService: SessionService;
+  let appStateService: AppStateService;
+  let sessSvc: SessionService;
 
   beforeEach(() => {
     load = "";
@@ -58,37 +58,37 @@ describe('FormGroup', () => {
         AppStateService,
       ]
     }).compileComponents();
-    stateService = TestBed.inject(AppStateService);
-    formGroupService = TestBed.inject(SessionService);
+    appStateService = TestBed.inject(AppStateService);
+    sessSvc = TestBed.inject(SessionService);
   });
 
   it('should create', () => {
-    expect(formGroupService).toBeTruthy();
+    expect(sessSvc).toBeTruthy();
   });
 
   it('should NOT save if the current state is SET_STATION', () => {
-    formGroupService.stationControl.setValue("abc");
-    stateService.toSetStation();
+    sessSvc.stationControl.setValue("abc");
+    appStateService.toSetStation();
 
-    formGroupService.sessionTypeControl.setValue("something");
+    sessSvc.sessionTypeControl.setValue("something");
 
     expect(saveAs).toBeFalsy();
   });
 
   it('should NOT save if the station control is empty', () => {
-    formGroupService.stationControl.setValue("");
-    stateService.toSetSession();
+    sessSvc.stationControl.setValue("");
+    appStateService.toSetSession();
 
-    formGroupService.sessionTypeControl.setValue("something");
+    sessSvc.sessionTypeControl.setValue("something");
 
     expect(saveAs).toBeFalsy();
   });
 
   it('should save if the station control is NOT empty and the current state is SET_SESSION', () => {
-    formGroupService.stationControl.setValue("123");
-    stateService.toSetSession();
+    sessSvc.stationControl.setValue("123");
+    appStateService.toSetSession();
 
-    formGroupService.sessionTypeControl.setValue("something");
+    sessSvc.sessionTypeControl.setValue("something");
 
     expect(saveAs).toBe("123");
     expect(save).toBe(JSON.stringify({"station":"123","sessionType":"something","gillingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}],"electrocutingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}]}));
@@ -98,10 +98,10 @@ describe('FormGroup', () => {
     // set load to assume what the save service found
     load = {"station":"123","sessionType":"something","gillingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}],"electrocutingRuns":[{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}},{"population":{"species":null,"count":null},"environment":{"date":null,"leader":null,"habitat":null}}]};
     
-    formGroupService.sessionTypeControl.setValue("random value");
-    formGroupService.stationControl.setValue("trigger change");
+    sessSvc.sessionTypeControl.setValue("random value");
+    sessSvc.stationControl.setValue("trigger change");
 
-    const actual = JSON.stringify(formGroupService._formGroup.getRawValue());
+    const actual = JSON.stringify(sessSvc._formGroup.getRawValue());
     const expected = JSON.stringify(load);
     expect(actual).toBe(expected);
   });
@@ -110,13 +110,13 @@ describe('FormGroup', () => {
     // set load to 'null' to assume the save service found nothing
     load = null;
     
-    formGroupService.sessionTypeControl.setValue("random value");
-    formGroupService.stationControl.setValue("trigger change");
+    sessSvc.sessionTypeControl.setValue("random value");
+    sessSvc.stationControl.setValue("trigger change");
 
-    const actualStationControl = formGroupService.stationControl.getRawValue();
+    const actualStationControl = sessSvc.stationControl.getRawValue();
     expect(actualStationControl).toBe("trigger change");
 
-    const actualSessionTypeControl = formGroupService.sessionTypeControl.getRawValue();
+    const actualSessionTypeControl = sessSvc.sessionTypeControl.getRawValue();
     expect(actualSessionTypeControl).toBeFalsy();
   });
 });

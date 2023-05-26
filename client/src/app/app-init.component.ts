@@ -15,7 +15,7 @@ import { SpeciesService } from './population/species.service';
   <mat-toolbar>
     <button
       mat-button
-      (click)="state.toSetStation()"
+      (click)="appStateSvc.toSetStation()"
     >PWA Test</button>
   </mat-toolbar>
   <app-root
@@ -32,7 +32,7 @@ export class AppInitComponent implements OnInit {
 
   constructor(private habitatSvc: HabitatService,
     private speciesSvc: SpeciesService,
-    protected state: AppStateService,
+    protected appStateSvc: AppStateService,
     private stationSvc: StationService) { }
 
   ngOnInit(): void {

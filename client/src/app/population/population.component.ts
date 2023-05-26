@@ -6,7 +6,7 @@ import { SessionService } from '../session/session.service';
   selector: 'app-population',
   styles: [ ],
   template: `
-  <mat-card [formGroup]="fgSvc.getPopulationGroup(sIdx)">
+  <mat-card [formGroup]="sessSvc.getPopulationGroup(sIdx)">
     <mat-card-content>
       <mat-form-field *ngIf="species">
         <mat-label>Species</mat-label>
@@ -37,5 +37,5 @@ export class PopulationComponent {
   @Input() sIdx!: number;
   @Input() species!: Species[];
 
-  constructor(protected fgSvc: SessionService) { }
+  constructor(protected sessSvc: SessionService) { }
 }

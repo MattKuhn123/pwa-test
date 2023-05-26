@@ -41,7 +41,7 @@ const saveStubPartial: Partial<SessionSaveService> = {
 describe('Session', () => {
   let component: SessionComponent;
   let fixture: ComponentFixture<SessionComponent>;
-  let fgSvc: SessionService;
+  let sessSvc: SessionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -82,7 +82,7 @@ describe('Session', () => {
     fixture = TestBed.createComponent(SessionComponent);
     component = fixture.componentInstance;
 
-    fgSvc = TestBed.inject(SessionService);
+    sessSvc = TestBed.inject(SessionService);
 
     component.habitats = [
       new Habitat({id: "1", name: "brush"}),
@@ -104,7 +104,7 @@ describe('Session', () => {
   });
 
   it('should render the session types', () => {
-    fgSvc.sessionTypeControl.setValue("");
+    sessSvc.sessionTypeControl.setValue("");
     fixture.detectChanges();
 
     const stationList = fixture.debugElement.query(By.css('[data-testid="session-type-group"]'));
@@ -115,7 +115,7 @@ describe('Session', () => {
   });
 
   it('should render nothing if session type is not selected', () => {
-    fgSvc.sessionTypeControl.setValue("");
+    sessSvc.sessionTypeControl.setValue("");
     fixture.detectChanges();
 
     const appEnvironment = fixture.debugElement.query(By.css('[data-testid="app-environment"]'));
@@ -126,7 +126,7 @@ describe('Session', () => {
   });
   
   it('should render environment first if session type is selected', () => {
-    fgSvc.sessionTypeControl.setValue("1");
+    sessSvc.sessionTypeControl.setValue("1");
     fixture.detectChanges();
 
     const appEnvironment = fixture.debugElement.query(By.css('[data-testid="app-environment"]'));
@@ -137,7 +137,7 @@ describe('Session', () => {
   });
   
   it('should render population if state changes and  session type is selected', () => {
-    fgSvc.sessionTypeControl.setValue("1");
+    sessSvc.sessionTypeControl.setValue("1");
     component["state"] = "POPULATION";
     fixture.detectChanges();
     
@@ -149,7 +149,7 @@ describe('Session', () => {
   });
 
   it('should render 15 buttons if selected gilling', () => {
-    fgSvc.sessionTypeControl.setValue(fgSvc.gilling.id);
+    sessSvc.sessionTypeControl.setValue(sessSvc.gilling.id);
     fixture.detectChanges();
 
     const idxButtons = fixture.debugElement.queryAll(By.css('[data-testid="idx-buttons"]'));
@@ -157,7 +157,7 @@ describe('Session', () => {
   });
 
   it('should render 12 buttons if selected electrocuting', () => {
-    fgSvc.sessionTypeControl.setValue(fgSvc.electrocuting.id);
+    sessSvc.sessionTypeControl.setValue(sessSvc.electrocuting.id);
     fixture.detectChanges();
 
     const idxButtons = fixture.debugElement.queryAll(By.css('[data-testid="idx-buttons"]'));
