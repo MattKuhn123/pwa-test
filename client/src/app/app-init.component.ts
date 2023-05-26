@@ -25,7 +25,7 @@ import { SpeciesService } from './population/species.service';
   ></app-root>
   `,
 })
-export class InitComponent implements OnInit {
+export class AppInitComponent implements OnInit {
   protected stations!: Observable<Station[]>;
   protected habitats!: Observable<Habitat[]>;
   protected species!: Observable<Species[]>;

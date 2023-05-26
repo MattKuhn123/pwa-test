@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { InitComponent } from './init.component';
+import { AppInitComponent } from './app-init.component';
 import { EnvironmentComponent } from './environment/environment.component';
 import { HabitatService } from './environment/habitat.service';
 import { PopulationComponent } from './population/population.component';
@@ -33,7 +33,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
-    InitComponent,
+    AppInitComponent,
     StationComponent,
     SessionComponent,
     PopulationComponent,
@@ -71,6 +71,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SessionSaveService,
     SessionTypeService
   ],
-  bootstrap: [ InitComponent ]
+  bootstrap: [ AppInitComponent ]
 })
 export class AppModule { }
