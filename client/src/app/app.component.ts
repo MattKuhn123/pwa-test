@@ -3,7 +3,7 @@ import { StateService } from './state.service';
 import { Station } from './station/station.model';
 import { Habitat } from './environment/habitat.model';
 import { Species } from './population/species.model';
-import { FormGroupService } from './form-group.service';
+import { SessionService } from './session/session.service';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   protected currentState!: string;
 
-  constructor(protected state: StateService, protected formGroupSvc: FormGroupService) { }
+  constructor(protected state: StateService, protected formGroupSvc: SessionService) { }
 
   ngOnInit(): void {
     this.state.state.subscribe(nextState => this.currentState = nextState);

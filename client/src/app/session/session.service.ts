@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SessionTypeService } from './session-type/session-type.service';
-import { SessionType } from './session-type/session-type.model';
-import { Station } from './station/station.model';
-import { SaveService } from './save.service';
-import { StateService } from './state.service';
+import { SessionTypeService } from '../session-type/session-type.service';
+import { SessionType } from '../session-type/session-type.model';
+import { Station } from '../station/station.model';
+import { SaveService } from '../save.service';
+import { StateService } from '../state.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FormGroupService {
+export class SessionService {
   public get formGroup(): FormGroup { return this._formGroup; }
   public _formGroup!: FormGroup;
   protected currentState!: string;

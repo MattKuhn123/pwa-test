@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Station } from './station.model';
 import { StateService } from '../state.service';
-import { FormGroupService } from '../form-group.service';
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-station',
@@ -38,5 +38,5 @@ import { FormGroupService } from '../form-group.service';
 export class StationComponent {
   @Input() stations!: Station[];
 
-  constructor(protected states: StateService, protected fgSvc: FormGroupService) { }
+  constructor(protected states: StateService, protected fgSvc: SessionService) { }
 }

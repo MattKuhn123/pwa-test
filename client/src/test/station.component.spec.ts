@@ -22,7 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
-import { FormGroupService } from 'src/app/form-group.service';
+import { SessionService } from 'src/app/session/session.service';
 import { SaveService } from 'src/app/save.service';
 
 const saveStubPartial: Partial<SaveService> = {
@@ -37,7 +37,7 @@ const saveStubPartial: Partial<SaveService> = {
 describe('Station', () => {
   let component: StationComponent;
   let fixture: ComponentFixture<StationComponent>;
-  let fgSvc: FormGroupService;
+  let fgSvc: SessionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -75,7 +75,7 @@ describe('Station', () => {
     fixture = TestBed.createComponent(StationComponent);
     component = fixture.componentInstance;
 
-    fgSvc = TestBed.inject(FormGroupService);
+    fgSvc = TestBed.inject(SessionService);
 
     component.stations = [
       new Station({ id: 'ab123', name: 'Alpha Bravo 123' }),

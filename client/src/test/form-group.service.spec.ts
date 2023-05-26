@@ -10,7 +10,7 @@ import { SessionComponent } from '../app/session/session.component';
 import { StationComponent } from '../app/station/station.component';
 
 import { StationService } from 'src/app/station/station.service';
-import { FormGroupService } from 'src/app/form-group.service';
+import { SessionService } from 'src/app/session/session.service';
 
 /**
  * The value the save service will return
@@ -32,7 +32,7 @@ const saveStubPartial: Partial<SaveService> = {
 
 describe('FormGroup', () => {
   let stateService: StateService;
-  let formGroupService: FormGroupService;
+  let formGroupService: SessionService;
 
   beforeEach(() => {
     load = "";
@@ -59,7 +59,7 @@ describe('FormGroup', () => {
       ]
     }).compileComponents();
     stateService = TestBed.inject(StateService);
-    formGroupService = TestBed.inject(FormGroupService);
+    formGroupService = TestBed.inject(SessionService);
   });
 
   it('should create', () => {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Habitat } from './habitat.model';
-import { FormGroupService } from '../form-group.service';
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-environment',
@@ -46,5 +46,5 @@ export class EnvironmentComponent {
   @Input() sIdx!: number;
   @Input() habitats!: Habitat[];
 
-  constructor(protected fgSvc: FormGroupService) { }
+  constructor(protected fgSvc: SessionService) { }
 }

@@ -21,7 +21,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { StationService } from 'src/app/station/station.service';
-import { FormGroupService } from 'src/app/form-group.service';
+import { SessionService } from 'src/app/session/session.service';
 import { SaveService } from 'src/app/save.service';
 import { Habitat } from 'src/app/environment/habitat.model';
 import { Species } from 'src/app/population/species.model';
@@ -41,7 +41,7 @@ const saveStubPartial: Partial<SaveService> = {
 describe('Session', () => {
   let component: SessionComponent;
   let fixture: ComponentFixture<SessionComponent>;
-  let fgSvc: FormGroupService;
+  let fgSvc: SessionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -82,7 +82,7 @@ describe('Session', () => {
     fixture = TestBed.createComponent(SessionComponent);
     component = fixture.componentInstance;
 
-    fgSvc = TestBed.inject(FormGroupService);
+    fgSvc = TestBed.inject(SessionService);
 
     component.habitats = [
       new Habitat({id: "1", name: "brush"}),

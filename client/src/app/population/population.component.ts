@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Species } from './species.model';
-import { FormGroupService } from '../form-group.service';
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-population',
@@ -37,5 +37,5 @@ export class PopulationComponent {
   @Input() sIdx!: number;
   @Input() species!: Species[];
 
-  constructor(protected fgSvc: FormGroupService) { }
+  constructor(protected fgSvc: SessionService) { }
 }

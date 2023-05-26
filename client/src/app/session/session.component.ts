@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Habitat } from '../environment/habitat.model';
 import { Species } from '../population/species.model';
-import { FormGroupService } from '../form-group.service';
+import { SessionService } from './session.service';
 
 @Component({
   selector: 'app-session',
@@ -64,5 +64,5 @@ export class SessionComponent {
       : this.fgSvc.electrocutingRuns;
   }
 
-  constructor(protected fgSvc: FormGroupService) { }
+  constructor(protected fgSvc: SessionService) { }
 }
