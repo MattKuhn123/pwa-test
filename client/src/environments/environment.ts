@@ -1,6 +1,6 @@
 export const environment = {
-  api: "./assets/api",
-  stations: '/stations.json',
-  habitats: '/habitats.json',
-  species: '/species.json',
+  api: "http://localhost:3000",
+  stations: '/stations',
+  habitats: '/habitats',
+  species: '/species',
 };
