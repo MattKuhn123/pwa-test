@@ -1,6 +1,22 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "api",
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxAge": "365d",
+        "maxSize": 100,
+        "timeout": "5s"
+      },
+      "urls": [
+        "http://localhost:3000/stations",
+        "http://localhost:3000/habitats",
+        "http://localhost:3000/species"
+      ]
+    }
+  ],
   "assetGroups": [
     {
       "name": "app",
