@@ -38,8 +38,15 @@ They are used to older technology. They do not like:
 In the client:
 
 1. `ng build`
-1. `http-server -p 8080 -c-1 dist/pwa-test`
+1. To run locally:
+    1. `http-server -p 8080 -c-1 dist/pwa-test`
+1. To run on aws s3:
+    1. Upload to the s3 bucket
 
 In the server:
 
-1. `npm start`
+1. To run locally
+    1. `npm start`
+1. To run on aws elastic beanstalk:
+    1. zip all except node_modules
+    1. upload zip to elastic beanstalk
