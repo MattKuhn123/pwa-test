@@ -42,4 +42,4 @@ In the client:
 
 In the service:
 
-1. `node app.js`
+1. `npm start`
