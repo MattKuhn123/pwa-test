@@ -40,6 +40,6 @@ In the client:
 1. `ng build`
 1. `http-server -p 8080 -c-1 dist/pwa-test`
 
-In the service:
+In the server:
 
 1. `npm start`
