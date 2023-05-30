@@ -101,7 +101,7 @@ describe('FormGroup', () => {
     sessSvc.sessionTypeControl.setValue("random value");
     sessSvc.stationControl.setValue("trigger change");
 
-    const actual = JSON.stringify(sessSvc._formGroup.getRawValue());
+    const actual = JSON.stringify(sessSvc.formGroup.getRawValue());
     const expected = JSON.stringify(load);
     expect(actual).toBe(expected);
   });

@@ -11,8 +11,8 @@ import { AppStateService } from '../app-state.service';
 })
 export class SessionService {
   public get formGroup(): FormGroup { return this._formGroup; }
-  public _formGroup!: FormGroup;
-  protected currentState!: string;
+  private _formGroup!: FormGroup;
+  private currentState!: string;
   
   public get gilling(): SessionType { return this.sessionTypeSvc.gilling; }
   public get gillingRuns(): number[] { return this.sessionTypeSvc.gillingRuns; }
