@@ -32,3 +32,14 @@ They are used to older technology. They do not like:
 1. Drop-downs
 1. Animations
 1. Etc
+
+## How to use this
+
+In the client:
+
+1. `ng build`
+1. `http-server -p 8080 -c-1 dist/pwa-test`
+
+In the service:
+
+1. `node app.js`
