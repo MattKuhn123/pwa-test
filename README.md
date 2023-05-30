@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 The purpose is to tinker with how Angular implements PWAs and see how service workers behave, learn about the who/what/when/where/why of caching.
 
+It's hosted [on AWS](http://mlk-pwa-test.s3-website-us-east-1.amazonaws.com/).  
+
 ## Context
 
 This application is for biologists to record the population data of wild life in the **Ohio** river valley.  
