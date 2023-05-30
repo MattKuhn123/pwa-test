@@ -29,6 +29,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AppServiceWorker } from './app-service-worker.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule
   ],
   providers: [
+    AppServiceWorker,
     HabitatService,
     SpeciesService,
     StationService,
