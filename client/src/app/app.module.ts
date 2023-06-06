@@ -71,7 +71,7 @@ import { AppServiceWorker } from './app-service-worker.service';
     SpeciesService,
     StationService,
     SessionSaveService,
-    SessionTypeService
+    SessionTypeService,
   ],
   bootstrap: [ AppInitComponent ]
 })
