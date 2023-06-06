@@ -20,33 +20,41 @@ This application is a MVP *(minimum viable product)* to reproduce their current 
 
 1. They select their station.  
 1. They select their session type.  
-1. If they are *gilling,* they'll have 15 runs.  
-1. If they are *electrecuting,* they'll have 12 runs.  
+1. If they are *gill-netting,* they'll have 15 runs.  
+1. If they are *electro-fishing,* they'll have 12 runs.  
 1. In each run, they need to record details about the environment, and details about the populations of fish.  
 
-### The biologists' needs
+## How to test the pwa
 
-Since they are working out in the field, this application must be functional even without an internet connection.  
-They are used to older technology. They do not like:  
-
-1. Drop-downs
-1. Animations
-1. Etc
-
-## How to use this
-
-In the client:
-
-1. `ng build`
-1. To run locally:
+1. Run the client locally:
+    1. `ng build`
     1. `http-server -p 8080 -c-1 dist/pwa-test`
-1. To run on aws s3:
-    1. Upload to the s3 bucket
+1. The server is already running in AWS.
+    1. To see the data, you can hit the `/habitats`, `/stations`, and `/species` endpoints at: [http://mlk-pwa-test-svc-env.eba-tifr3hk3.us-east-1.elasticbeanstalk.com](http://mlk-pwa-test-svc-env.eba-tifr3hk3.us-east-1.elasticbeanstalk.com).  
+    1. The add to the data, you can submit a POST request to those same endpoints. See `app.js` for details on how that works, but it's intuitive.
 
-In the server:
+We want to test what the PWA does when the website is running without an internet connection.  
 
-1. To run locally
-    1. `npm start`
-1. To run on aws elastic beanstalk:
-    1. zip all except node_modules
-    1. upload zip to elastic beanstalk
+1. Will it still run?
+1. Will it still have the drop-down data?
+1. When will it update the drop-down data?
+
+The answers are:
+
+1. Yes, it will still run.
+1. Yes, it will still have the drop-down data.
+1. It will update the drop-down data automatically next time an internet connection is available.
+
+But, you can test this for yourself!
+
+1. Run the client locally.
+1. Visit the client in a web browser.
+1. Post some new data to the service.
+1. Disconnect your client from the internet.
+1. Refresh the page.
+    1. Notice that the page still comes up!
+    1. Notice that the drop-down data is still there!
+    1. Notice that the NEW drop-down data that you posted is NOT there.
+1. Reconnect your client to the internet.
+1. Refresh the page.
+    1. Notice that the NEW drop-down data is now there!
