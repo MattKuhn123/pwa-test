@@ -11,9 +11,9 @@
         "timeout": "5s"
       },
       "urls": [
-        "http://localhost:3000/stations",
-        "http://localhost:3000/habitats",
-        "http://localhost:3000/species"
+        "http://mlk-pwa-test-svc-env.eba-tifr3hk3.us-east-1.elasticbeanstalk.com/stations",
+        "http://mlk-pwa-test-svc-env.eba-tifr3hk3.us-east-1.elasticbeanstalk.com/habitats",
+        "http://mlk-pwa-test-svc-env.eba-tifr3hk3.us-east-1.elasticbeanstalk.com/species"
       ]
     }
   ],
